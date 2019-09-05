@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    platform: mysql
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://47.98.165.2:3306/undertakes?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
+    username: root
+    password: '123456'
+
+#swagger:
+#  base-package: com.distribution.modules.api.controller
+#  enabled: true
+#  title: API接口文档
+#  description: API接口文档
+
+

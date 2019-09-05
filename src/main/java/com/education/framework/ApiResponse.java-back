@@ -1,0 +1,66 @@
+package com.education.framework;
+
+/**
+ * Created by Carl on 2018/2/6.
+ * API 返回的实体类型
+ */
+public class ApiResponse<T> {
+    private   String code = "0000";
+    private   String result = "SUCCESS";
+    private T data;
+
+    public static <T> ApiResponse<T> ok(){
+    	ApiResponse<T> response = new ApiResponse<T>();
+    	return response;
+    }
+    
+    public static <T> ApiResponse<T> ok(T t){
+    	ApiResponse<T> response = new ApiResponse<T>();
+    	response.setCode("0000");
+    	response.setResult("SUCCESS");
+    	response.setData(t);
+    	return response;
+    }
+    
+    public static ApiResponse<String> err(String _code, String result){
+    	ApiResponse<String> response = new ApiResponse<String>();
+    	response.setCode(_code);
+    	response.setResult(result);
+    	return response;
+    }
+
+    public ApiResponse(String code, String result, T data){
+        this.code = code;
+        this.result = result;
+        this.data = data;
+    }
+    
+    private ApiResponse(){
+        this.code = "0000";
+        this.result = "SUCCESS";
+        this.data = null;
+    }
+
+    public String getCode(){
+        return code;
+    }
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getResult(){
+        return result;
+    }
+
+    public void setResult(String result){
+        this.result = result;
+    }
+
+    public T getData(){
+        return data;
+    }
+
+    public void setData(T data){
+        this.data = data;
+    }
+}
