@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.education.center.user.mapper.SysUserDOMapper">
+  <resultMap id="BaseResultMap" type="com.education.center.user.entity.SysUserDO">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="openId" jdbcType="INTEGER" property="openid" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="sex" jdbcType="BIGINT" property="sex" />
+    <result column="birthday" jdbcType="DATE" property="birthday" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+    <result column="city_code" jdbcType="VARCHAR" property="cityCode" />
+    <result column="street_code" jdbcType="VARCHAR" property="streetCode" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="Invite_code" jdbcType="INTEGER" property="inviteCode" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, openId, user_name, phone, sex, birthday, avatar, city_code, street_code, address, 
+    Invite_code, create_time, update_time
+  </sql>
+</mapper>

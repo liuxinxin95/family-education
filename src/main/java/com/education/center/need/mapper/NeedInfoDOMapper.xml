@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.education.center.need.mapper.NeedInfoDOMapper">
+  <resultMap id="BaseResultMap" type="com.education.center.need.entity.NeedInfoDO">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="sax" jdbcType="INTEGER" property="sax" />
+    <result column="tallest_diploma" jdbcType="VARCHAR" property="tallestDiploma" />
+    <result column="graduate_institutions" jdbcType="VARCHAR" property="graduateInstitutions" />
+    <result column="specialized" jdbcType="VARCHAR" property="specialized" />
+    <result column="teaching_school" jdbcType="VARCHAR" property="teachingSchool" />
+    <result column="teaching_age" jdbcType="VARCHAR" property="teachingAge" />
+    <result column="teaching_subject_id" jdbcType="INTEGER" property="teachingSubjectId" />
+    <result column="teaching_grade_id" jdbcType="INTEGER" property="teachingGradeId" />
+    <result column="teaching_address" jdbcType="VARCHAR" property="teachingAddress" />
+    <result column="teaching_mode" jdbcType="VARCHAR" property="teachingMode" />
+    <result column="teaching_time" jdbcType="TIMESTAMP" property="teachingTime" />
+    <result column="remuneration" jdbcType="INTEGER" property="remuneration" />
+    <result column="teaching_feature" jdbcType="VARCHAR" property="teachingFeature" />
+    <result column="lon" jdbcType="VARCHAR" property="lon" />
+    <result column="lat" jdbcType="VARCHAR" property="lat" />
+    <result column="need_type" jdbcType="BIGINT" property="needType" />
+    <result column="teacher_photo" jdbcType="VARCHAR" property="teacherPhoto" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, user_id, nick_name, phone, sax, tallest_diploma, graduate_institutions, specialized, 
+    teaching_school, teaching_age, teaching_subject_id, teaching_grade_id, teaching_address, 
+    teaching_mode, teaching_time, remuneration, teaching_feature, lon, lat, need_type, 
+    teacher_photo, create_time, update_time
+  </sql>
+</mapper>

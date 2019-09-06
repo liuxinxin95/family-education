@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.education.center.main.mapper.SysCityDOMapper">
+  <resultMap id="BaseResultMap" type="com.education.center.main.entity.SysCityDO">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="citycode" jdbcType="INTEGER" property="citycode" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="initial" jdbcType="CHAR" property="initial" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, citycode, city, initial
+  </sql>
+</mapper>

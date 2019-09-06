@@ -87,7 +87,7 @@
         <!--        <table modulePackage="bd" tableName="pp_shop_dau_stats" domainObjectName="ShopDauStatsDO"/>-->
 <!--        <table modulePackage="user" tableName="sys_user" domainObjectName="SysUserDO"/>-->
 
-        <table tableName="sys_user" domainObjectName="SysUserDO" enableCountByExample="false" enableUpdateByExample="false"
+        <table tableName="user_info" domainObjectName="UserInfoDO" enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false"></table>
     </context>
