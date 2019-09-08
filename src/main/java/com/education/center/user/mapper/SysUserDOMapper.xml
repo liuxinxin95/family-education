@@ -6,7 +6,7 @@
       WARNING - @mbg.generated
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="openId" jdbcType="INTEGER" property="openid" />
+    <result column="open_id" jdbcType="VARCHAR" property="openId" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="sex" jdbcType="BIGINT" property="sex" />
@@ -15,14 +15,12 @@
     <result column="city_code" jdbcType="VARCHAR" property="cityCode" />
     <result column="street_code" jdbcType="VARCHAR" property="streetCode" />
     <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="professional" jdbcType="VARCHAR" property="professional" />
     <result column="Invite_code" jdbcType="INTEGER" property="inviteCode" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    <!--
-      WARNING - @mbg.generated
-    -->
     id, openId, user_name, phone, sex, birthday, avatar, city_code, street_code, address, 
     Invite_code, create_time, update_time
   </sql>

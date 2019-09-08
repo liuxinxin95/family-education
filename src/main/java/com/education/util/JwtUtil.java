@@ -1,25 +1,30 @@
 package com.education.util;
 
+import com.education.center.user.entity.SysUserDO;
+import com.education.center.user.vo.UserVO;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 public class JwtUtil {
     static final String SECRET = "ThisIsASecret";
 
-    public static String generateToken(String username) {
-        HashMap<String, Object> map = new HashMap<>();
-        //you can put any data in the map
-        map.put("username", username);
+    public static String generateToken(SysUserDO sysUserDO) {
+
+        Map<String,Object> param = new HashMap<String,Object>();
+        param.put("openId",sysUserDO.getOpenid());
+        param.put("userName",sysUserDO.getUserName());
         String jwt = Jwts.builder()
-                .setSubject(username)
-                .setExpiration(new Date(System.currentTimeMillis() + 3600_000_000L))// 1000 hour
+                .setSubject(sysUserDO.getOpenid())
+                .setHeader(param)
+                .setExpiration(new Date(System.currentTimeMillis() + 3600_000_000L))
                 .signWith(SignatureAlgorithm.HS512, SECRET)
                 .compact();
-        return "Bearer "+jwt; //jwt前面一般都会加Bearer
+        return "Bearer "+jwt;
     }
 
     public static Claims validateToken(String token) {

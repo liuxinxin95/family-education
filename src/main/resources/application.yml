@@ -49,11 +49,10 @@ spring:
 
 # Mybatis配置
 mybatis:
-  mapperLocations: classpath:*/mapper/*.xml
+  mapperLocations: classpath:com/education/center/**/mapper/*.xml
   #    configLocation: classpath:mybatis.xml
   configuration:
     map-underscore-to-camel-case: true
-  type-aliases-package: com.education.center
 
 #mybatis分页
 pagehelper:

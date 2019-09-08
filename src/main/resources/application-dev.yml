@@ -6,7 +6,9 @@ spring:
     url: jdbc:mysql://47.98.165.2:3306/family-education?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&&useSSL=true&zeroDateTimeBehavior=convertToNull
     username: root
     password: '123456'
-
+logging:
+  level:
+    com.education.center.*: debug
 #swagger:
 #  base-package: com.distribution.modules.api.controller
 #  enabled: true

@@ -22,10 +22,10 @@ public class CityServiceImpl {
 
     public void convertForPinYin() {
         List<SysDistrictDO> sysDistrictDOS = sysDistrictDOMapper.selectAll();
-        sysDistrictDOS.parallelStream().forEach(x -> {
-            String alpha = PinyinUtils.getAlpha(x.getDistrict());
-            x.setInitial(alpha.substring(0, 1));
-        });
-        sysDistrictDOMapper.updateList(sysDistrictDOS);
+//        sysDistrictDOS.parallelStream().forEach(x -> {
+//            String alpha = PinyinUtils.getAlpha(x.getDistrict());
+//            x.setInitial(alpha.substring(0, 1));
+//        });
+//        sysDistrictDOMapper.updateList(sysDistrictDOS);
     }
 }

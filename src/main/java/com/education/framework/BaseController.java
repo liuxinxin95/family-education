@@ -1,6 +1,5 @@
 package com.education.framework;
 
-import com.education.framework.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;

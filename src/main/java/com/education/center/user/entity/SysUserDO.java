@@ -11,8 +11,8 @@ public class SysUserDO {
     /**
      * 微信id
      */
-    @Column(name = "openId")
-    private Integer openid;
+    @Column(name = "open_id")
+    private String openId;
 
     /**
      * 用户名称默认微信昵称
@@ -39,6 +39,11 @@ public class SysUserDO {
      * 头像
      */
     private String avatar;
+
+    /**
+     * 职业
+     */
+    private String professional;
 
     /**
      * 城市编码
@@ -94,8 +99,8 @@ public class SysUserDO {
      *
      * @return openId - 微信id
      */
-    public Integer getOpenid() {
-        return openid;
+    public String getOpenId() {
+        return openId;
     }
 
     /**
@@ -103,8 +108,8 @@ public class SysUserDO {
      *
      * @param openid 微信id
      */
-    public void setOpenid(Integer openid) {
-        this.openid = openid;
+    public void setOpenId(String openId) {
+        this.openId = openId;
     }
 
     /**
@@ -303,5 +308,13 @@ public class SysUserDO {
      */
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getProfessional() {
+        return professional;
+    }
+
+    public void setProfessional(String professional) {
+        this.professional = professional;
     }
 }
