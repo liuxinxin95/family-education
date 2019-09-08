@@ -7,7 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import tk.mybatis.spring.annotation.MapperScan;
 
 @SpringBootApplication
-@MapperScan({"com.education.center.**.mapper"})
+@MapperScan({"com.education.center"})
 public class FamilyEducationApplication {
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
