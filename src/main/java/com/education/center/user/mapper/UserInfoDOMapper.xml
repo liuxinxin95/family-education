@@ -20,6 +20,7 @@
     <result column="examine_status" jdbcType="BIGINT" property="examineStatus" />
     <result column="inviter_user_id" jdbcType="INTEGER" property="inviterUserId" />
     <result column="pay_type" jdbcType="BIGINT" property="payType" />
+    <result column="teacher_type" jdbcType="INTEGER" property="teacherType" />
     <result column="pay_single_status" jdbcType="BIGINT" property="paySingleStatus" />
   </resultMap>
   <sql id="Base_Column_List">

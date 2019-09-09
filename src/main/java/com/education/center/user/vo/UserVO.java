@@ -14,9 +14,17 @@ import java.util.Date;
 @Data
 public class UserVO implements Serializable {
 
-
+    /**
+     * 微信id
+     */
     private String openId;
+    /**
+     * 名称
+     */
     private String userName;
+    /**
+     * 头像
+     */
     private String avatar;
     /**
      * 性别：0女1男

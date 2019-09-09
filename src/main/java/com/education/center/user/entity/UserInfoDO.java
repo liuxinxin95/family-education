@@ -98,6 +98,12 @@ public class UserInfoDO {
     private Long paySingleStatus;
 
     /**
+     * 教师类型：0兼职1专职
+     */
+    @Column(name = "teacher_type")
+    private Long teacherType;
+
+    /**
      * @return id
      */
     public Integer getId() {
@@ -379,5 +385,13 @@ public class UserInfoDO {
      */
     public void setPaySingleStatus(Long paySingleStatus) {
         this.paySingleStatus = paySingleStatus;
+    }
+
+    public Long getTeacherType() {
+        return teacherType;
+    }
+
+    public void setTeacherType(Long teacherType) {
+        this.teacherType = teacherType;
     }
 }

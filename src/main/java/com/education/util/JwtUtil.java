@@ -16,10 +16,10 @@ public class JwtUtil {
     public static String generateToken(SysUserDO sysUserDO) {
 
         Map<String,Object> param = new HashMap<String,Object>();
-        param.put("openId",sysUserDO.getOpenid());
+        param.put("openId",sysUserDO.getOpenId());
         param.put("userName",sysUserDO.getUserName());
         String jwt = Jwts.builder()
-                .setSubject(sysUserDO.getOpenid())
+                .setSubject(sysUserDO.getOpenId())
                 .setHeader(param)
                 .setExpiration(new Date(System.currentTimeMillis() + 3600_000_000L))
                 .signWith(SignatureAlgorithm.HS512, SECRET)
