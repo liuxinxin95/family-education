@@ -19,7 +19,7 @@
     <result column="teaching_grade_id" jdbcType="INTEGER" property="teachingGradeId" />
     <result column="teaching_address" jdbcType="VARCHAR" property="teachingAddress" />
     <result column="teaching_mode" jdbcType="VARCHAR" property="teachingMode" />
-    <result column="teaching_time" jdbcType="TIMESTAMP" property="teachingTime" />
+    <result column="teaching_time" jdbcType="VARCHAR" property="teachingTime" />
     <result column="remuneration" jdbcType="INTEGER" property="remuneration" />
     <result column="teaching_feature" jdbcType="VARCHAR" property="teachingFeature" />
     <result column="lon" jdbcType="VARCHAR" property="lon" />

@@ -1,5 +1,7 @@
 package com.education.config;
 
+import com.education.common.SysUser;
+import com.education.common.UserContext;
 import com.education.util.JwtUtil;
 import io.jsonwebtoken.Claims;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -34,8 +36,10 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
         UsernamePasswordAuthenticationToken authentication = getAuthentication(request);
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
+        SysUser sysUser = new SysUser();
+        sysUser.setOpenId(authentication.getPrincipal().toString());
+        UserContext.<SysUser>getContext().setCurrentUser(sysUser);
         chain.doFilter(request, response);
-
     }
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {

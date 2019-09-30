@@ -1,23 +1,23 @@
-package com.education.center.need.entity;
+package com.education.center.need.vo;
+
+import io.swagger.annotations.ApiModel;
 
 import java.util.Date;
-import javax.persistence.*;
 
-@Table(name = "need_info")
-public class NeedInfoDO {
-    @Id
+@ApiModel
+public class NeedInfoVO {
+
+
     private Integer id;
 
     /**
      * 用户id
      */
-    @Column(name = "user_id")
     private Integer userId;
 
     /**
      * 姓名或昵称
      */
-    @Column(name = "nick_name")
     private String nickName;
 
     /**
@@ -33,13 +33,11 @@ public class NeedInfoDO {
     /**
      * 最高学历
      */
-    @Column(name = "tallest_diploma")
     private String tallestDiploma;
 
     /**
      * 毕业院校
      */
-    @Column(name = "graduate_institutions")
     private String graduateInstitutions;
 
     /**
@@ -50,44 +48,37 @@ public class NeedInfoDO {
     /**
      * 任教学校
      */
-    @Column(name = "teaching_school")
     private String teachingSchool;
 
     /**
      * 教学年龄
      */
-    @Column(name = "teaching_age")
     private String teachingAge;
 
     /**
      * 授课科目id
      */
-    @Column(name = "teaching_subject_id")
     private Integer teachingSubjectId;
 
     /**
      * 授课年级id
      */
-    @Column(name = "teaching_grade_id")
     private Integer teachingGradeId;
 
     /**
      * 授课地址
      */
-    @Column(name = "teaching_address")
     private String teachingAddress;
 
     /**
      * 教学方式
      */
-    @Column(name = "teaching_mode")
     private String teachingMode;
 
     /**
      * 教学时间
      */
-    @Column(name = "teaching_time")
-    private String teachingTime;
+    private Date teachingTime;
 
     /**
      * 酬金
@@ -97,7 +88,6 @@ public class NeedInfoDO {
     /**
      * 教学特点
      */
-    @Column(name = "teaching_feature")
     private String teachingFeature;
 
     /**
@@ -113,19 +103,15 @@ public class NeedInfoDO {
     /**
      * 需求类型：0老师1学生
      */
-    @Column(name = "need_type")
     private Long needType;
 
     /**
      * 老师照片
      */
-    @Column(name = "teacher_photo")
     private String teacherPhoto;
 
-    @Column(name = "create_time")
     private Date createTime;
 
-    @Column(name = "update_time")
     private Date updateTime;
 
     /**
@@ -381,7 +367,7 @@ public class NeedInfoDO {
      *
      * @return teaching_time - 教学时间
      */
-    public String getTeachingTime() {
+    public Date getTeachingTime() {
         return teachingTime;
     }
 
@@ -390,7 +376,7 @@ public class NeedInfoDO {
      *
      * @param teachingTime 教学时间
      */
-    public void setTeachingTime(String teachingTime) {
+    public void setTeachingTime(Date teachingTime) {
         this.teachingTime = teachingTime;
     }
 

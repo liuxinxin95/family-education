@@ -18,7 +18,7 @@ public class UserServiceImplTest {
     @Test
     public void login() {
         UserVO userVO = new UserVO();
-        userVO.setOpenid("123");
+        userVO.setOpenId("123");
         userVO.setUserName("233");
         userVO.setAvatar("222");
         String login = userService.login(userVO);
