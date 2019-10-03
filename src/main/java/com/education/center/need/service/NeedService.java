@@ -1,9 +1,6 @@
 package com.education.center.need.service;
 
-import com.education.center.need.vo.NeedInfoParam;
-import com.education.center.need.vo.NeedInfoRequest;
-import com.education.center.need.vo.NeedInfoVO;
-import com.education.center.need.vo.NeedOverviewVO;
+import com.education.center.need.vo.*;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -35,4 +32,19 @@ public interface NeedService {
      * @return
      */
     PageInfo<NeedInfoVO> getPageList(NeedInfoRequest request);
+
+
+    /**
+     * 地图模式
+     * @param request
+     * @return
+     */
+    List<NeedInfoVO> getListForMap(NeedInfoRequest request);
+
+    /**
+     * 需求明细
+     * @param id
+     * @return
+     */
+    NeedDetailVO getNeedDetail(Integer id);
 }

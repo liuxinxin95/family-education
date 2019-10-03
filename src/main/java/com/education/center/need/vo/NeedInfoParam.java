@@ -9,9 +9,6 @@ import java.util.Date;
 @Data
 public class NeedInfoParam {
 
-
-    private Integer id;
-
     /**
      * 用户id
      */
@@ -111,9 +108,5 @@ public class NeedInfoParam {
      * 老师照片
      */
     private String teacherPhoto;
-
-    private Date createTime;
-
-    private Date updateTime;
 
 }

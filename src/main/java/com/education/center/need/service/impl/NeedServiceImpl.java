@@ -1,17 +1,11 @@
 package com.education.center.need.service.impl;
 
-import java.sql.ResultSet;
-
 import com.education.center.need.entity.NeedInfoDO;
 import com.education.center.need.mapper.NeedInfoDOMapper;
 import com.education.center.need.service.NeedService;
-import com.education.center.need.vo.NeedInfoParam;
-import com.education.center.need.vo.NeedInfoRequest;
-import com.education.center.need.vo.NeedInfoVO;
-import com.education.center.need.vo.NeedOverviewVO;
+import com.education.center.need.vo.*;
 import com.education.center.user.entity.SysUserDO;
 import com.education.center.user.entity.UserInfoDO;
-import com.education.center.user.mapper.SysUserDOMapper;
 import com.education.center.user.mapper.UserInfoDOMapper;
 import com.education.center.user.service.SysUserService;
 import com.education.exception.RRException;
@@ -38,9 +32,6 @@ public class NeedServiceImpl implements NeedService {
 
     @Resource
     private NeedInfoDOMapper needInfoDOMapper;
-
-    @Resource
-    private SysUserDOMapper sysUserDOMapper;
 
     @Autowired
     private SysUserService sysUserService;
@@ -107,6 +98,8 @@ public class NeedServiceImpl implements NeedService {
      */
     @Override
     public PageInfo<NeedInfoVO> getPageList(NeedInfoRequest request) {
+        //设置经纬度查询
+        setMaxLon(request);
         PageInfo<NeedInfoVO> objectPageInfo = PageHelper.startPage(request.getPageNum(), request.getPageNum()).doSelectPageInfo(() -> needInfoDOMapper.selectPageList(request));
         objectPageInfo.getList().parallelStream().forEach(x -> {
             if (x.getCertificationStatus() > 2) {
@@ -118,18 +111,59 @@ public class NeedServiceImpl implements NeedService {
         return objectPageInfo;
     }
 
-    public static void get(double radii, double lon, double lat) {
+    /**
+     * 地图模式
+     *
+     * @return
+     */
+    @Override
+    public List<NeedInfoVO> getListForMap(NeedInfoRequest request) {
+        setMaxLon(request);
+        return needInfoDOMapper.selectPageList(request);
+    }
+
+
+    /**
+     * 需求明细
+     * @param id
+     * @return
+     */
+    @Override
+    public NeedDetailVO getNeedDetail(Integer id){
+        NeedDetailVO needDetailVO = needInfoDOMapper.selectDetail(id);
+        if (needDetailVO!=null){
+            if (needDetailVO.getCertificationStatus() > 2) {
+                needDetailVO.setCertificationStatusText("已认证");
+            } else {
+                needDetailVO.setCertificationStatusText("未认证");
+            }
+
+        }else {
+            throw new RRException("需求信息查询错误，请稍后重试");
+        }
+        return needDetailVO;
+    }
+    /**
+     * 查找附近的人
+     *
+     * @return
+     */
+    public static void setMaxLon(NeedInfoRequest request) {
         //地球半径千米
         double r = 6371;
-        double dis = radii;
-        double dlng = 2 * Math.asin(Math.sin(dis / (2 * r)) / Math.cos(lat * Math.PI / 180));
+        double dis = request.getRadii();
+        double dlng = 2 * Math.asin(Math.sin(dis / (2 * r)) / Math.cos(request.getLat() * Math.PI / 180));
         //角度转为弧度
         dlng = dlng * 180 / Math.PI;
         double dlat = dis / r;
         dlat = dlat * 180 / Math.PI;
-        double minlat = lat - dlat;
-        double maxlat = lat + dlat;
-        double minlng = lon - dlng;
-        double maxlng = lon + dlng;
+        double minlat = request.getLat() - dlat;
+        double maxlat = request.getLat() + dlat;
+        double minlng = request.getLon() - dlng;
+        double maxlng = request.getLon() + dlng;
+        request.setMaxlat(maxlat);
+        request.setMinlat(minlat);
+        request.setMaxlng(maxlng);
+        request.setMinlng(minlng);
     }
 }

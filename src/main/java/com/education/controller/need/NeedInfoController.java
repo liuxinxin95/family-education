@@ -1,10 +1,7 @@
 package com.education.controller.need;
 
 import com.education.center.need.service.NeedService;
-import com.education.center.need.vo.NeedInfoParam;
-import com.education.center.need.vo.NeedInfoRequest;
-import com.education.center.need.vo.NeedInfoVO;
-import com.education.center.need.vo.NeedOverviewVO;
+import com.education.center.need.vo.*;
 import com.education.framework.ApiResponse;
 import com.education.framework.BaseController;
 import com.github.pagehelper.PageInfo;
@@ -41,7 +38,19 @@ public class NeedInfoController extends BaseController {
 
     @PostMapping(value = "/getPageList")
     @ResponseBody
-    public ApiResponse<PageInfo<NeedInfoVO>> getPageList(@RequestBody NeedInfoRequest request){
+    public ApiResponse<PageInfo<NeedInfoVO>> getPageList(@RequestBody NeedInfoRequest request) {
         return success(needService.getPageList(request));
+    }
+
+    @PostMapping(value = "/getListForMap")
+    @ResponseBody
+    public ApiResponse<List<NeedInfoVO>> getListForMap(@RequestBody NeedInfoRequest request) {
+        return success(needService.getListForMap(request));
+    }
+
+    @GetMapping(value = "/getNeedDetail")
+    @ResponseBody
+    public ApiResponse<NeedDetailVO> getNeedDetail(@RequestParam("id") Integer id) {
+        return success(needService.getNeedDetail(id));
     }
 }

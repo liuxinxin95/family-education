@@ -34,7 +34,15 @@ public class NeedInfoRequest extends PageRequest {
 
     @ApiModelProperty(value = "1老师2者机构")
     private Integer userType;
-
+    /**
+     * 附近多少距离
+     */
+    @ApiModelProperty(value = "附近多少距离单位km")
+    private double radii;
+    @ApiModelProperty(value = "当前经度")
+    private double lon;
+    @ApiModelProperty(value = "当前维度")
+    private double lat;
     /**
      * 最小经度
      */

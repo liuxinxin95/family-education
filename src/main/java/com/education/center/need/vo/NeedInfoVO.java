@@ -16,6 +16,7 @@ import java.io.Serializable;
 @Data
 public class NeedInfoVO implements Serializable{
 
+    private Integer id;
     /**
      * 机构id
      */

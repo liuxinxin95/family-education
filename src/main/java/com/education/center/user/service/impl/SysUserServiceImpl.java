@@ -41,6 +41,7 @@ public class SysUserServiceImpl implements SysUserService {
 
 
     private static Logger log = LoggerFactory.getLogger(SysUserServiceImpl.class);
+
     /**
      * 登录成功返回session
      *
@@ -129,10 +130,7 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void certification(UserInfoVO userInfoVO) {
-        String openId = ((SysUser) UserContext.getContext().getCurrentUser()).getOpenId();
-        SysUserDO sysUserDO = new SysUserDO();
-        sysUserDO.setOpenId(openId);
-        SysUserDO sysUserDO1 = sysUserDOMapper.selectOne(sysUserDO);
+        SysUserDO user = getUser();
         if (userInfoVO.getUserType() == null) {
             throw new RRException("请指定审核类型");
         }
@@ -141,14 +139,14 @@ public class SysUserServiceImpl implements SysUserService {
         //是否是机构
         boolean isInstitutions = false;
         if (userInfoVO.getInviteCode() != null) {
-            sysUserDO = new SysUserDO();
+            SysUserDO sysUserDO = new SysUserDO();
             sysUserDO.setInviteCode(userInfoVO.getInviteCode());
             SysUserDO sysUserDO2 = sysUserDOMapper.selectOne(sysUserDO);
             if (sysUserDO2 != null) {
                 UserInfoDO userInfoDO1 = new UserInfoDO();
                 userInfoDO1.setUserId(sysUserDO2.getId());
                 UserInfoDO userInfoDO2 = userInfoDOMapper.selectOne(userInfoDO1);
-                log.info("邀请人{}",sysUserDO2.getUserName());
+                log.info("邀请人{}", sysUserDO2.getUserName());
                 if (userInfoDO2 != null) {
                     inviteUser = userInfoDO2.getUserId();
                     userInfoDO.setInviterUserId(userInfoDO2.getUserId());
@@ -157,6 +155,9 @@ public class SysUserServiceImpl implements SysUserService {
         }
         //统一未审核、机构邀请需要后面机构补缴后开通、其他正常流程
         userInfoVO.setExamineStatus(0);
+        userInfoDO.setCertificationStatus(0);
+        userInfoDO.setPaySingleStatus(0);
+        userInfoDO.setPayType(0);
         switch (userInfoVO.getUserType()) {
             //老师
             case 1:
@@ -164,14 +165,6 @@ public class SysUserServiceImpl implements SysUserService {
                 if (StringUtils.isBlank(userInfoVO.getTeacherCertificationPhoto())) {
                     throw new RRException("请上传有效的教师资格证");
                 }
-
-//                if (isInstitutions) {
-//                    userInfoDO.setPayType(0);
-//                    userInfoDO.setPaySingleStatus(1);
-//                } else {
-//                    userInfoDO.setPaySingleStatus(0);
-//                    userInfoDO.setPayType(0);
-//                }
                 break;
             //结构
             case 2:
@@ -181,22 +174,29 @@ public class SysUserServiceImpl implements SysUserService {
                 if (StringUtils.isBlank(userInfoVO.getBusinessLicenseNumber())) {
                     throw new RRException("请输入有效的营业执照号码");
                 }
-//                //默认未交费
-//                userInfoDO.setPaySingleStatus(0);
-//                userInfoDO.setPayType(0);
-
                 break;
             default:
 
         }
         //TODO 如果有邀请做返利和记录;
-
-        //
-        userInfoDOMapper.insert(userInfoDO);
+        UserInfoDO infoDO = new UserInfoDO();
+        infoDO.setUserId(user.getId());
+        UserInfoDO userInfoDO1 = userInfoDOMapper.selectOne(infoDO);
+        if (userInfoDO1 == null) {
+            userInfoDOMapper.insert(userInfoDO);
+        } else {
+            if (userInfoDO1.getCertificationStatus() > 2) {
+                throw new RRException("已认证通过请勿重复提交");
+            }
+            userInfoDO.setId(userInfoDO1.getId());
+            userInfoDOMapper.updateByPrimaryKey(userInfoDO);
+        }
     }
 
+    
     /**
      * 获取用户信息
+     *
      * @return
      */
     @Override

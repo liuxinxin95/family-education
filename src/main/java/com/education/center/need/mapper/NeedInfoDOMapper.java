@@ -1,6 +1,8 @@
 package com.education.center.need.mapper;
 
+
 import com.education.center.need.entity.NeedInfoDO;
+import com.education.center.need.vo.NeedDetailVO;
 import com.education.center.need.vo.NeedInfoRequest;
 import com.education.center.need.vo.NeedInfoVO;
 import com.education.center.need.vo.NeedOverviewVO;
@@ -22,4 +24,10 @@ public interface NeedInfoDOMapper extends Mapper<NeedInfoDO> {
     List<NeedInfoVO> selectPageList(NeedInfoRequest request);
 
 
+    /**
+     * 需求明细
+     * @param id
+     * @return
+     */
+    NeedDetailVO selectDetail(@Param("id")Integer id);
 }

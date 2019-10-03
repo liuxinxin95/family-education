@@ -49,7 +49,8 @@
   </select>
 
     <select id="selectPageList" resultType="com.education.center.need.vo.NeedInfoVO">
-        select b.organization_id as organizationId,a.nick_name as nickName,b.user_type as userType,b.teacher_type as teacherType,a.teaching_age teachingAge,
+        select a.id as id ,b.organization_id as organizationId,a.nick_name as nickName,b.user_type as
+        userType,b.teacher_type as teacherType,a.teaching_age teachingAge,
         d.grade_name as gradeName,e.subject_name as subjectName,b.certificationStatus as certificationStatus ,
         (POWER(MOD(ABS(a.lon - #{longitude}),360),2) + POWER(ABS(a.lat - #{latitude}),2)) AS distance
         from need_info a
@@ -59,7 +60,7 @@
         LEFT JOIN subject_info e on e.id = a.teaching_subject_id
         where 1=1
         <if test="gradeId != null and gradeId != 0">
-        and (d.id = #{gradeId} or d.parent_id = #{gradeId} )
+            and (d.id = #{gradeId} or d.parent_id = #{gradeId} )
         </if>
         <if test="subjectId != null and subjectId != 0">
             and e.id = #{subjectId}
@@ -73,10 +74,29 @@
         <if test="teachingAge != null and teachingAge != ''">
             and a.teaching_age = #{teachingAge}
         </if>
-         <if test="userType != null">
-             and b.user_type = #{userType}
-         </if>
+        <if test="userType != null">
+            and b.user_type = #{userType}
+        </if>
         and a.lon &gt;= #{minlng} and a.lon &lt;= #{maxlng} and a.lat &gt;= #{minlat} and a.lat &lt;= #{maxlat}
         order by distance
+    </select>
+
+    <select id="selectDetail" resultType="com.education.center.need.vo.NeedDetailVO">
+        select a.id as id ,b.organization_id as organizationId,a.teaching_age teachingAge,a.nick_name as nickName,
+        a.user_id as userId ,a.phone as phone,a.sax as sax, a.tallest_diploma as tallestDiploma,
+        a.graduate_institutions as graduateInstitutions,a.specialized as specialized ,a.teaching_school as
+        teachingSchool,
+        a.teaching_age as teachingAge,a.teaching_address as teachingAddress,a.teaching_mode as teachingMode,
+        a.teaching_time as teachingTime,a.teaching_feature as remuneration,a.remuneration as remuneration,
+        a.lat as lat ,a.lon as lon,a.need_type as needType,a.teacher_photo as teacherPhoto
+        b.user_type as userType,b.teacher_type as teacherType,
+        d.grade_name as gradeName,e.subject_name as subjectName,b.certificationStatus as certificationStatus ,
+        (POWER(MOD(ABS(a.lon - #{longitude}),360),2) + POWER(ABS(a.lat - #{latitude}),2)) AS distance
+        from need_info a
+        LEFT JOIN user_info b on a.user_id = b.user_id
+        LEFT JOIN sys_user c on b.user_id = c.id
+        LEFT JOIN grade_info d on d.id = a.teaching_grade_id
+        LEFT JOIN subject_info e on e.id = a.teaching_subject_id
+        where a.id = #{id}
     </select>
 </mapper>
