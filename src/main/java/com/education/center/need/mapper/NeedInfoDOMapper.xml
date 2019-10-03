@@ -1,41 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.education.center.need.mapper.NeedInfoDOMapper">
-  <resultMap id="BaseResultMap" type="com.education.center.need.entity.NeedInfoDO">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
-    <result column="phone" jdbcType="VARCHAR" property="phone" />
-    <result column="sax" jdbcType="INTEGER" property="sax" />
-    <result column="tallest_diploma" jdbcType="VARCHAR" property="tallestDiploma" />
-    <result column="graduate_institutions" jdbcType="VARCHAR" property="graduateInstitutions" />
-    <result column="specialized" jdbcType="VARCHAR" property="specialized" />
-    <result column="teaching_school" jdbcType="VARCHAR" property="teachingSchool" />
-    <result column="teaching_age" jdbcType="VARCHAR" property="teachingAge" />
-    <result column="teaching_subject_id" jdbcType="INTEGER" property="teachingSubjectId" />
-    <result column="teaching_grade_id" jdbcType="INTEGER" property="teachingGradeId" />
-    <result column="teaching_address" jdbcType="VARCHAR" property="teachingAddress" />
-    <result column="teaching_mode" jdbcType="VARCHAR" property="teachingMode" />
-    <result column="teaching_time" jdbcType="VARCHAR" property="teachingTime" />
-    <result column="remuneration" jdbcType="INTEGER" property="remuneration" />
-    <result column="teaching_feature" jdbcType="VARCHAR" property="teachingFeature" />
-    <result column="lon" jdbcType="VARCHAR" property="lon" />
-    <result column="lat" jdbcType="VARCHAR" property="lat" />
-    <result column="need_type" jdbcType="BIGINT" property="needType" />
-    <result column="teacher_photo" jdbcType="VARCHAR" property="teacherPhoto" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    id, user_id, nick_name, phone, sax, tallest_diploma, graduate_institutions, specialized, 
-    teaching_school, teaching_age, teaching_subject_id, teaching_grade_id, teaching_address, 
-    teaching_mode, teaching_time, remuneration, teaching_feature, lon, lat, need_type, 
-    teacher_photo, create_time, update_time
-  </sql>
+    <resultMap id="BaseResultMap" type="com.education.center.need.entity.NeedInfoDO">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="sax" jdbcType="INTEGER" property="sax"/>
+        <result column="tallest_diploma" jdbcType="VARCHAR" property="tallestDiploma"/>
+        <result column="graduate_institutions" jdbcType="VARCHAR" property="graduateInstitutions"/>
+        <result column="specialized" jdbcType="VARCHAR" property="specialized"/>
+        <result column="teaching_school" jdbcType="VARCHAR" property="teachingSchool"/>
+        <result column="teaching_age" jdbcType="VARCHAR" property="teachingAge"/>
+        <result column="teaching_subject_id" jdbcType="INTEGER" property="teachingSubjectId"/>
+        <result column="teaching_grade_id" jdbcType="INTEGER" property="teachingGradeId"/>
+        <result column="teaching_address" jdbcType="VARCHAR" property="teachingAddress"/>
+        <result column="teaching_mode" jdbcType="VARCHAR" property="teachingMode"/>
+        <result column="teaching_time" jdbcType="VARCHAR" property="teachingTime"/>
+        <result column="remuneration" jdbcType="INTEGER" property="remuneration"/>
+        <result column="teaching_feature" jdbcType="VARCHAR" property="teachingFeature"/>
+        <result column="lon" jdbcType="VARCHAR" property="lon"/>
+        <result column="lat" jdbcType="VARCHAR" property="lat"/>
+        <result column="need_type" jdbcType="BIGINT" property="needType"/>
+        <result column="teacher_photo" jdbcType="VARCHAR" property="teacherPhoto"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        id, user_id, nick_name, phone, sax, tallest_diploma, graduate_institutions, specialized,
+        teaching_school, teaching_age, teaching_subject_id, teaching_grade_id, teaching_address,
+        teaching_mode, teaching_time, remuneration, teaching_feature, lon, lat, need_type,
+        teacher_photo, create_time, update_time
+    </sql>
+
+    <select id="selectMyNeed" resultType="com.education.center.need.vo.NeedOverviewVO">
+    select a.id,a.nick_name as nickName ,b.grade_name as gradeName,c.subject_name as subjectName ,
+    a.teaching_grade_id as teachingGradeId,a.graduate_institutions as graduateInstitutions
+    from need_info a
+    LEFT JOIN grade_info b on a.teaching_grade_id = b.id
+    LEFT JOIN subject_info c on c.id = a.teaching_subject_id
+    where a.user_id = #{userId}
+  </select>
+
+    <select id="selectPageList" resultType="com.education.center.need.vo.NeedInfoVO">
+        select b.organization_id as organizationId,a.nick_name as nickName,b.user_type as userType,b.teacher_type as teacherType,a.teaching_age teachingAge,
+        d.grade_name as gradeName,e.subject_name as subjectName,b.certificationStatus as certificationStatus ,
+        (POWER(MOD(ABS(a.lon - #{longitude}),360),2) + POWER(ABS(a.lat - #{latitude}),2)) AS distance
+        from need_info a
+        LEFT JOIN user_info b on a.user_id = b.user_id
+        LEFT JOIN sys_user c on b.user_id = c.id
+        LEFT JOIN grade_info d on d.id = a.teaching_grade_id
+        LEFT JOIN subject_info e on e.id = a.teaching_subject_id
+        where 1=1
+        <if test="gradeId != null and gradeId != 0">
+        and (d.id = #{gradeId} or d.parent_id = #{gradeId} )
+        </if>
+        <if test="subjectId != null and subjectId != 0">
+            and e.id = #{subjectId}
+        </if>
+        <if test="teachingMode != null and teachingMode !=''">
+            and a.teaching_mode = #{teachingMode}
+        </if>
+        <if test="sax !=null">
+            and a.sax = #{sax}
+        </if>
+        <if test="teachingAge != null and teachingAge != ''">
+            and a.teaching_age = #{teachingAge}
+        </if>
+         <if test="userType != null">
+             and b.user_type = #{userType}
+         </if>
+        and a.lon &gt;= #{minlng} and a.lon &lt;= #{maxlng} and a.lat &gt;= #{minlat} and a.lat &lt;= #{maxlat}
+        order by distance
+    </select>
 </mapper>

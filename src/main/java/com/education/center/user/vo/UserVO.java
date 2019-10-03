@@ -40,4 +40,9 @@ public class UserVO implements Serializable {
      * 职业
      */
     private String professional;
+
+    /**
+     * 手机号
+     */
+    private String phone;
 }

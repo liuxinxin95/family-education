@@ -1,8 +1,6 @@
 package com.education.controller.user;
-import	java.lang.ProcessBuilder.Redirect;
 
 import com.education.center.user.service.SysUserService;
-import com.education.center.user.vo.UserInfoVO;
 import com.education.center.user.vo.UserVO;
 import com.education.common.SysUser;
 import com.education.common.UserContext;
@@ -51,8 +49,8 @@ public class UserController extends BaseController {
      */
     @GetMapping(value = "/getUserInfo")
     @ResponseBody
-    public ApiResponse<UserInfoVO> getUserInfo() {
-        UserInfoVO userInfo = sysUserService.getUserInfo();
+    public ApiResponse<UserVO> getUserInfo() {
+        UserVO userInfo = sysUserService.getUserInfo();
         return success(userInfo);
     }
 

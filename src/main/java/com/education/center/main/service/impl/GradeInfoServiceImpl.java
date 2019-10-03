@@ -21,7 +21,6 @@ import java.util.List;
  **/
 @Service
 @Primary
-@Log4j
 public class GradeInfoServiceImpl implements GradeInfoService {
 
     @Resource
@@ -30,10 +29,11 @@ public class GradeInfoServiceImpl implements GradeInfoService {
 
     /**
      * 只获取夫级年级名称
+     *
      * @return
      */
     @Override
-    public List<GradeInfoTreeVO> getParent(){
+    public List<GradeInfoTreeVO> getParent() {
         GradeInfoDO gradeInfoDO = new GradeInfoDO();
         gradeInfoDO.setParentId(0);
         List<GradeInfoDO> grade = gradeInfoDOMapper.select(gradeInfoDO);
@@ -42,12 +42,13 @@ public class GradeInfoServiceImpl implements GradeInfoService {
 
     /**
      * 以树状结构展示年级信息
+     *
      * @return
      */
     @Override
-    public List<GradeInfoTreeVO> getAll(){
+    public List<GradeInfoTreeVO> getAll() {
         List<GradeInfoDO> gradeInfoDOS = gradeInfoDOMapper.selectAll();
         List<GradeInfoTreeVO> gradeInfoTreeVOS = BeanMapUtil.convertList(gradeInfoDOS, GradeInfoTreeVO.class);
-        return TreeUtil.bulid(gradeInfoTreeVOS,0);
+        return TreeUtil.bulid(gradeInfoTreeVOS, 0);
     }
 }

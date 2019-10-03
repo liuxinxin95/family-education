@@ -1,14 +1,17 @@
 package com.education.controller.need;
 
 import com.education.center.need.service.NeedService;
+import com.education.center.need.vo.NeedInfoParam;
+import com.education.center.need.vo.NeedInfoRequest;
 import com.education.center.need.vo.NeedInfoVO;
+import com.education.center.need.vo.NeedOverviewVO;
 import com.education.framework.ApiResponse;
 import com.education.framework.BaseController;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author Carl
@@ -24,9 +27,21 @@ public class NeedInfoController extends BaseController {
     private NeedService needService;
 
 
-    @PostMapping(value ="/saveNeedInfo")
-    public ApiResponse saveNeedInfo(@RequestBody NeedInfoVO needInfoVO){
+    @PostMapping(value = "/saveNeedInfo")
+    public ApiResponse saveNeedInfo(@RequestBody NeedInfoParam needInfoVO) {
         needService.saveNeedInfo(needInfoVO);
         return success(true);
+    }
+
+    @GetMapping(value = "/getMyNeedList")
+    @ResponseBody
+    public ApiResponse<List<NeedOverviewVO>> getMyNeedList() {
+        return success(needService.getMyNeedList());
+    }
+
+    @PostMapping(value = "/getPageList")
+    @ResponseBody
+    public ApiResponse<PageInfo<NeedInfoVO>> getPageList(@RequestBody NeedInfoRequest request){
+        return success(needService.getPageList(request));
     }
 }

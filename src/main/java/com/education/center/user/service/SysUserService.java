@@ -1,5 +1,6 @@
 package com.education.center.user.service;
 
+import com.education.center.user.entity.SysUserDO;
 import com.education.center.user.vo.UserInfoVO;
 import com.education.center.user.vo.UserVO;
 
@@ -31,7 +32,7 @@ public interface SysUserService {
      *
      * @return
      */
-    UserInfoVO getUserInfo();
+    UserVO getUserInfo();
 
     /**
      * 修改手机号
@@ -39,4 +40,13 @@ public interface SysUserService {
      * @param smsCaptcha
      */
     void updatePhone(String phone, String smsCaptcha);
+
+    /**
+     * 申请认证
+     * @param userInfoVO
+     */
+    void certification(UserInfoVO userInfoVO);
+
+
+    SysUserDO getUser();
 }
