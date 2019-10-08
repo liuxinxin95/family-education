@@ -165,6 +165,7 @@ public class SysUserServiceImpl implements SysUserService {
                 if (StringUtils.isBlank(userInfoVO.getTeacherCertificationPhoto())) {
                     throw new RRException("请上传有效的教师资格证");
                 }
+                userInfoDO.setCertificationStatus(1);
                 break;
             //结构
             case 2:
@@ -174,6 +175,7 @@ public class SysUserServiceImpl implements SysUserService {
                 if (StringUtils.isBlank(userInfoVO.getBusinessLicenseNumber())) {
                     throw new RRException("请输入有效的营业执照号码");
                 }
+                userInfoDO.setCertificationStatus(1);
                 break;
             default:
 
@@ -193,7 +195,7 @@ public class SysUserServiceImpl implements SysUserService {
         }
     }
 
-    
+
     /**
      * 获取用户信息
      *
