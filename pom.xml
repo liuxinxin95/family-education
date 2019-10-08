@@ -132,6 +132,12 @@
             <version>1.18.8</version>
         </dependency>
 
+            <!--    腾讯短信    -->
+        <dependency>
+            <groupId>com.github.qcloudsms</groupId>
+            <artifactId>qcloudsms</artifactId>
+            <version>1.0.6</version>
+        </dependency>
     </dependencies>
 
     <build>

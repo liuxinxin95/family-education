@@ -14,6 +14,12 @@ public class SubjectInfoDO {
     @Column(name = "subject_name")
     private String subjectName;
 
+    /**
+     * 年级id
+     */
+    @Column(name = "grade_id")
+    private Integer gradeId;
+
     @Column(name = "create_time")
     private Date createTime;
 
@@ -50,6 +56,24 @@ public class SubjectInfoDO {
      */
     public void setSubjectName(String subjectName) {
         this.subjectName = subjectName == null ? null : subjectName.trim();
+    }
+
+    /**
+     * 获取年级id
+     *
+     * @return grade_id - 年级id
+     */
+    public Integer getGradeId() {
+        return gradeId;
+    }
+
+    /**
+     * 设置年级id
+     *
+     * @param gradeId 年级id
+     */
+    public void setGradeId(Integer gradeId) {
+        this.gradeId = gradeId;
     }
 
     /**

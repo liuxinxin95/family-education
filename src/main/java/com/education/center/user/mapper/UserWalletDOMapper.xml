@@ -7,7 +7,7 @@
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="wallet_ balance" jdbcType="BIGINT" property="walletBalance" />
+    <result column="wallet_balance" jdbcType="BIGINT" property="walletBalance" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
@@ -15,6 +15,6 @@
     <!--
       WARNING - @mbg.generated
     -->
-    id, user_id, "wallet_ balance", create_time, update_time
+    id, user_id, wallet_balance, create_time, update_time
   </sql>
 </mapper>

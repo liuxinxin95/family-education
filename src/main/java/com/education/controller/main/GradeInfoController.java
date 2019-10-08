@@ -1,8 +1,7 @@
 package com.education.controller.main;
-import	java.lang.ProcessBuilder.Redirect;
 
 import com.education.center.main.service.GradeInfoService;
-import com.education.center.main.vo.GradeInfoTreeVO;
+import com.education.center.main.vo.GradeInfoVO;
 import com.education.framework.ApiResponse;
 import com.education.framework.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +31,7 @@ public class GradeInfoController extends BaseController {
      */
     @GetMapping(value ="/getParent")
     @ResponseBody
-    public ApiResponse<List<GradeInfoTreeVO>> getParent(){
+    public ApiResponse<List<GradeInfoVO>> getParent(){
         return success(gradeInfoService.getParent());
     }
 
@@ -42,7 +41,7 @@ public class GradeInfoController extends BaseController {
      */
     @GetMapping(value ="/getAllTree")
     @ResponseBody
-    public ApiResponse<List<GradeInfoTreeVO>> getAllTree(){
+    public ApiResponse<List<GradeInfoVO>> getAllTree(){
         return success(gradeInfoService.getAll());
     }
 

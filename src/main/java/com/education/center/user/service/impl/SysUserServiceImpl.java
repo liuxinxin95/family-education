@@ -7,6 +7,7 @@ import com.education.center.user.mapper.UserInfoDOMapper;
 import com.education.center.user.service.SysUserService;
 import com.education.center.user.vo.UserInfoVO;
 import com.education.center.user.vo.UserVO;
+import com.education.common.SmsBiz;
 import com.education.common.SysUser;
 import com.education.common.UserContext;
 import com.education.exception.RRException;
@@ -15,6 +16,7 @@ import com.education.util.JwtUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,6 +41,8 @@ public class SysUserServiceImpl implements SysUserService {
     @Resource
     private UserInfoDOMapper userInfoDOMapper;
 
+    @Autowired
+    private SmsBiz smsBiz;
 
     private static Logger log = LoggerFactory.getLogger(SysUserServiceImpl.class);
 
@@ -82,7 +86,8 @@ public class SysUserServiceImpl implements SysUserService {
             throw new RRException("用户不存在，请重新登录");
         }
         SysUserDO userDO = BeanMapUtil.convertObject(userVO, SysUserDO.class);
-        userDO.setOpenId(openId);
+        userDO.setId(sysUserDO1.getId());
+//        userDO.setOpenId(openId);
         int i = sysUserDOMapper.updateByPrimaryKeySelective(userDO);
         if (i <= 0) {
             throw new RRException("用户信息修改失败,请重试");
@@ -113,7 +118,7 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public void updatePhone(String phone, String smsCaptcha) {
         //TODO 校验验证码
-
+        smsBiz.checkCode(phone, smsCaptcha);
 
         //TODO 修改手机号
         SysUserDO sysUserDO = getUser();

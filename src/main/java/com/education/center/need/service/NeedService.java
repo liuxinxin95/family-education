@@ -46,5 +46,5 @@ public interface NeedService {
      * @param id
      * @return
      */
-    NeedDetailVO getNeedDetail(Integer id);
+    NeedDetailVO getNeedDetail(Integer id,Double longitude, Double latitude);
 }

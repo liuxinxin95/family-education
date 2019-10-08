@@ -15,6 +15,7 @@ public interface NeedInfoDOMapper extends Mapper<NeedInfoDO> {
 
     /**
      * 查询自己的需求列表
+     *
      * @param userId
      * @return
      */
@@ -26,8 +27,11 @@ public interface NeedInfoDOMapper extends Mapper<NeedInfoDO> {
 
     /**
      * 需求明细
+     *
      * @param id
+     * @param longitude
+     * @param latitude
      * @return
      */
-    NeedDetailVO selectDetail(@Param("id")Integer id);
+    NeedDetailVO selectDetail(@Param("id") Integer id, @Param("longitude") Double longitude, @Param("latitude") Double latitude);
 }

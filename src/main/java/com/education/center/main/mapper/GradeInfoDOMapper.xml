@@ -7,7 +7,6 @@
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="grade_name" jdbcType="VARCHAR" property="gradeName" />
-    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
@@ -15,6 +14,6 @@
     <!--
       WARNING - @mbg.generated
     -->
-    id, grade_name, parent_id, create_time, update_time
+    id, grade_name, create_time, update_time
   </sql>
 </mapper>

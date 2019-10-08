@@ -114,7 +114,7 @@ public class NeedInfoDO {
      * 需求类型：0老师1学生
      */
     @Column(name = "need_type")
-    private Long needType;
+    private Integer needType;
 
     /**
      * 老师照片
@@ -471,7 +471,7 @@ public class NeedInfoDO {
      *
      * @return need_type - 需求类型：0老师1学生
      */
-    public Long getNeedType() {
+    public Integer getNeedType() {
         return needType;
     }
 
@@ -480,7 +480,7 @@ public class NeedInfoDO {
      *
      * @param needType 需求类型：0老师1学生
      */
-    public void setNeedType(Long needType) {
+    public void setNeedType(Integer needType) {
         this.needType = needType;
     }
 

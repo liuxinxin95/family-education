@@ -50,7 +50,7 @@ public class NeedInfoController extends BaseController {
 
     @GetMapping(value = "/getNeedDetail")
     @ResponseBody
-    public ApiResponse<NeedDetailVO> getNeedDetail(@RequestParam("id") Integer id) {
-        return success(needService.getNeedDetail(id));
+    public ApiResponse<NeedDetailVO> getNeedDetail(@RequestParam("id") Integer id,@RequestParam("longitude") Double longitude,@RequestParam("latitude") Double latitude) {
+        return success(needService.getNeedDetail(id,longitude,latitude));
     }
 }

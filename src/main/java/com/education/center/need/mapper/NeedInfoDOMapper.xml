@@ -24,7 +24,7 @@
         <result column="teaching_feature" jdbcType="VARCHAR" property="teachingFeature"/>
         <result column="lon" jdbcType="VARCHAR" property="lon"/>
         <result column="lat" jdbcType="VARCHAR" property="lat"/>
-        <result column="need_type" jdbcType="BIGINT" property="needType"/>
+        <result column="need_type" jdbcType="INTEGER" property="needType"/>
         <result column="teacher_photo" jdbcType="VARCHAR" property="teacherPhoto"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
@@ -60,7 +60,7 @@
         LEFT JOIN subject_info e on e.id = a.teaching_subject_id
         where 1=1
         <if test="gradeId != null and gradeId != 0">
-            and (d.id = #{gradeId} or d.parent_id = #{gradeId} )
+            and d.id = #{gradeId}
         </if>
         <if test="subjectId != null and subjectId != 0">
             and e.id = #{subjectId}

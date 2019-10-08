@@ -17,7 +17,7 @@ public class UserWalletDO {
     /**
      * 用户余额
      */
-    @Column(name = ""wallet_ balance"")
+    @Column(name = "wallet_balance")
     private Long walletBalance;
 
     /**
@@ -67,7 +67,7 @@ public class UserWalletDO {
     /**
      * 获取用户余额
      *
-     * @return wallet_ balance - 用户余额
+     * @return wallet_balance - 用户余额
      */
     public Long getWalletBalance() {
         return walletBalance;

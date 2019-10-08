@@ -14,11 +14,6 @@ public class GradeInfoDO {
     @Column(name = "grade_name")
     private String gradeName;
 
-    /**
-     * 夫级id
-     */
-    @Column(name = "parent_id")
-    private Integer parentId;
 
     @Column(name = "create_time")
     private Date createTime;
@@ -58,23 +53,6 @@ public class GradeInfoDO {
         this.gradeName = gradeName == null ? null : gradeName.trim();
     }
 
-    /**
-     * 获取夫级id
-     *
-     * @return parent_id - 夫级id
-     */
-    public Integer getParentId() {
-        return parentId;
-    }
-
-    /**
-     * 设置夫级id
-     *
-     * @param parentId 夫级id
-     */
-    public void setParentId(Integer parentId) {
-        this.parentId = parentId;
-    }
 
     /**
      * @return create_time

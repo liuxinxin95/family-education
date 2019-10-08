@@ -125,24 +125,26 @@ public class NeedServiceImpl implements NeedService {
 
     /**
      * 需求明细
+     *
      * @param id
      * @return
      */
     @Override
-    public NeedDetailVO getNeedDetail(Integer id){
-        NeedDetailVO needDetailVO = needInfoDOMapper.selectDetail(id);
-        if (needDetailVO!=null){
+    public NeedDetailVO getNeedDetail(Integer id, Double longitude, Double latitude) {
+        NeedDetailVO needDetailVO = needInfoDOMapper.selectDetail(id, longitude, latitude);
+        if (needDetailVO != null) {
             if (needDetailVO.getCertificationStatus() > 2) {
                 needDetailVO.setCertificationStatusText("已认证");
             } else {
                 needDetailVO.setCertificationStatusText("未认证");
             }
 
-        }else {
+        } else {
             throw new RRException("需求信息查询错误，请稍后重试");
         }
         return needDetailVO;
     }
+
     /**
      * 查找附近的人
      *
