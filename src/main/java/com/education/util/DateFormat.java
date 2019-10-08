@@ -1,4 +1,4 @@
-package com.education.common;
+package com.education.util;
 
 import com.education.util.DateUtil;
 

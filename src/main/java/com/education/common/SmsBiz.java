@@ -56,8 +56,8 @@ public class SmsBiz {
             ArrayList<String> params = new ArrayList<>();
             params.add(captcha);
             redisTemplate.opsForValue().set(phone, captcha, 60, TimeUnit.SECONDS);
-            SmsSingleSender ssender = new SmsSingleSender(appid, appkey);
-            SmsSingleSenderResult result = ssender.sendWithParam("86", phone,
+            SmsSingleSender sender = new SmsSingleSender(appid, appkey);
+            SmsSingleSenderResult result = sender.sendWithParam("86", phone,
                     templateId, params, smsSign, "", "");
             System.out.println(JSONObject.toJSONString(result));
         } catch (Exception e) {

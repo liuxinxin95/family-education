@@ -1,6 +1,6 @@
 package com.pinpianyi.framework.util.enums;
 
-import com.education.common.IBaseEnum;
+import com.education.util.IBaseEnum;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 

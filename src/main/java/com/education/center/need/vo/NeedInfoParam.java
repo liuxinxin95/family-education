@@ -9,10 +9,6 @@ import java.util.Date;
 @Data
 public class NeedInfoParam {
 
-    /**
-     * 用户id
-     */
-    private Integer userId;
 
     /**
      * 姓名或昵称

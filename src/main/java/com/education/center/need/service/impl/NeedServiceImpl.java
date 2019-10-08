@@ -48,7 +48,6 @@ public class NeedServiceImpl implements NeedService {
     @Transactional(rollbackFor = Exception.class)
     public void saveNeedInfo(NeedInfoParam needInfoVO) {
         SysUserDO sysUserDO1 = sysUserService.getUser();
-
         if (needInfoVO.getNeedType() != null) {
             if (needInfoVO.getNeedType() == 0) {
                 UserInfoDO userInfoDO = new UserInfoDO();

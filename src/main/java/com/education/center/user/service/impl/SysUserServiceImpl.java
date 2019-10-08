@@ -2,11 +2,13 @@ package com.education.center.user.service.impl;
 
 import com.education.center.user.entity.SysUserDO;
 import com.education.center.user.entity.UserInfoDO;
+import com.education.center.user.enums.UserCertificationEnum;
 import com.education.center.user.mapper.SysUserDOMapper;
 import com.education.center.user.mapper.UserInfoDOMapper;
 import com.education.center.user.service.SysUserService;
 import com.education.center.user.vo.UserInfoVO;
 import com.education.center.user.vo.UserVO;
+import com.education.center.user.vo.UserCertificationVO;
 import com.education.common.SmsBiz;
 import com.education.common.SysUser;
 import com.education.common.UserContext;
@@ -87,7 +89,6 @@ public class SysUserServiceImpl implements SysUserService {
         }
         SysUserDO userDO = BeanMapUtil.convertObject(userVO, SysUserDO.class);
         userDO.setId(sysUserDO1.getId());
-//        userDO.setOpenId(openId);
         int i = sysUserDOMapper.updateByPrimaryKeySelective(userDO);
         if (i <= 0) {
             throw new RRException("用户信息修改失败,请重试");
@@ -200,6 +201,29 @@ public class SysUserServiceImpl implements SysUserService {
         }
     }
 
+    /**
+     * 获取用户当前认证状态
+     * @return
+     */
+    @Override
+    public UserCertificationVO getUserCertification(){
+        UserCertificationVO userCertificationVO = new UserCertificationVO();
+        SysUserDO user = getUser();
+        UserInfoDO infoDO = new UserInfoDO();
+        infoDO.setUserId(user.getId());
+        UserInfoDO userInfoDO1 = userInfoDOMapper.selectOne(infoDO);
+        userCertificationVO.setUserId(user.getId());
+        if (userInfoDO1 == null){
+            userCertificationVO.setPaySingleStatus(0);
+            userCertificationVO.setPaySingleStatus(UserCertificationEnum.UNVERIFIED.getType());
+            userCertificationVO.setCertificationText(UserCertificationEnum.UNVERIFIED.getName());
+        }else {
+            userCertificationVO.setPaySingleStatus(userInfoDO1.getPaySingleStatus());
+            userCertificationVO.setPaySingleStatus(userInfoDO1.getCertificationStatus());
+            userCertificationVO.setCertificationText(UserCertificationEnum.valueType(userCertificationVO.getCertificationType()));
+        }
+        return userCertificationVO;
+    }
 
     /**
      * 获取用户信息

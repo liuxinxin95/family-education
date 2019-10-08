@@ -1,6 +1,8 @@
 package com.education.controller.user;
 
 import com.education.center.user.service.SysUserService;
+import com.education.center.user.vo.UserCertificationVO;
+import com.education.center.user.vo.UserInfoVO;
 import com.education.center.user.vo.UserVO;
 import com.education.common.SysUser;
 import com.education.common.UserContext;
@@ -67,4 +69,25 @@ public class UserController extends BaseController {
         return success(true);
     }
 
+
+    /**
+     * 申请认证
+     *
+     * @param userVO
+     * @return
+     */
+    @PostMapping(value = "/certification")
+    public ApiResponse certification(@RequestBody UserInfoVO userInfoVO) {
+        sysUserService.certification(userInfoVO);
+        return success(true);
+    }
+
+    /**
+     * 获取用户当前认证状态
+     * @return
+     */
+    @GetMapping(value = "/getUserCertification")
+    public ApiResponse<UserCertificationVO> getUserCertification() {
+        return success(sysUserService.getUserCertification());
+    }
 }

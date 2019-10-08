@@ -1,6 +1,7 @@
 package com.education.center.user.service;
 
 import com.education.center.user.entity.SysUserDO;
+import com.education.center.user.vo.UserCertificationVO;
 import com.education.center.user.vo.UserInfoVO;
 import com.education.center.user.vo.UserVO;
 
@@ -47,6 +48,11 @@ public interface SysUserService {
      */
     void certification(UserInfoVO userInfoVO);
 
+    /**
+     * 获取用户当前认证状态
+     * @return
+     */
+    UserCertificationVO getUserCertification();
 
     SysUserDO getUser();
 }
