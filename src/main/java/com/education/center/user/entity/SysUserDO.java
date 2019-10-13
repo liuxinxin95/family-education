@@ -65,7 +65,7 @@ public class SysUserDO {
     /**
      * 邀请码
      */
-    @Column(name = "Invite_code")
+    @Column(name = "invite_code")
     private Integer inviteCode;
 
     /**

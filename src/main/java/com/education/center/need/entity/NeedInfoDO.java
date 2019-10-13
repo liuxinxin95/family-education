@@ -28,7 +28,7 @@ public class NeedInfoDO {
     /**
      * 性别
      */
-    private Integer sax;
+    private Integer sex;
 
     /**
      * 最高学历
@@ -222,8 +222,8 @@ public class NeedInfoDO {
      *
      * @return sax - 性别
      */
-    public Integer getSax() {
-        return sax;
+    public Integer getSex() {
+        return sex;
     }
 
     /**
@@ -231,8 +231,8 @@ public class NeedInfoDO {
      *
      * @param sax 性别
      */
-    public void setSax(Integer sax) {
-        this.sax = sax;
+    public void setSex(Integer sex) {
+        this.sex = sex;
     }
 
     /**

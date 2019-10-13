@@ -94,7 +94,7 @@ public class SysUserServiceImpl implements SysUserService {
             sysUserDO1 = BeanMapUtil.convertObject(userVO, SysUserDO.class);
             sysUserDO1.setCreateTime(new Date());
             sysUserDO1.setUpdateTime(new Date());
-            sysUserDOMapper.insertSelective(sysUserDO1);
+            sysUserDOMapper.insertOne(sysUserDO1);
             sysUserDO1.setInviteCode(getInviteCode(sysUserDO1.getId()));
             sysUserDOMapper.updateByPrimaryKey(sysUserDO1);
             //添加钱包
@@ -293,7 +293,6 @@ public class SysUserServiceImpl implements SysUserService {
         Integer integer = Integer.valueOf(code);
         SysUserDO userDO = new SysUserDO();
         userDO.setInviteCode(integer);
-
         SysUserDO userDO1 = sysUserDOMapper.selectOne(userDO);
         if (userDO1 == null) {
             return integer;

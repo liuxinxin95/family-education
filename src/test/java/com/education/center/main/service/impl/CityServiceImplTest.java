@@ -16,6 +16,6 @@ public class CityServiceImplTest {
     private CityServiceImpl cityService;
     @Test
     public void convertForPinYin() {
-        cityService.convertForPinYin();
+//        cityService.convertForPinYin();
     }
 }

@@ -9,7 +9,7 @@
         <result column="user_id" jdbcType="INTEGER" property="userId"/>
         <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
         <result column="phone" jdbcType="VARCHAR" property="phone"/>
-        <result column="sax" jdbcType="INTEGER" property="sax"/>
+        <result column="sex" jdbcType="INTEGER" property="sex"/>
         <result column="tallest_diploma" jdbcType="VARCHAR" property="tallestDiploma"/>
         <result column="graduate_institutions" jdbcType="VARCHAR" property="graduateInstitutions"/>
         <result column="specialized" jdbcType="VARCHAR" property="specialized"/>
@@ -37,7 +37,7 @@
         <!--
           WARNING - @mbg.generated
         -->
-        id, user_id, nick_name, phone, sax, tallest_diploma, graduate_institutions, specialized,
+        id, user_id, nick_name, phone, sex, tallest_diploma, graduate_institutions, specialized,
         teaching_school, teaching_age, teaching_subject_id, teaching_grade_id, teaching_address,
         teaching_mode, teaching_time, remuneration, teaching_feature, lon, lat, need_type,
         teacher_photo, create_time, update_time,province_id,city_id,district_id
@@ -53,13 +53,13 @@
   </select>
 
     <select id="selectPageList" resultType="com.education.center.need.vo.NeedInfoVO">
-        select a.id as id ,b.organization_id as organizationId,a.nick_name as nickName,b.user_type as
+        select a.id as id ,b.organization_id as organizationId,a.nick_name as nickName,c.user_type as
         userType,b.teacher_type as teacherType,a.teaching_age teachingAge,
-        d.grade_name as gradeName,e.subject_name as subjectName,b.certificationStatus as certificationStatus ,
-        (POWER(MOD(ABS(a.lon - #{longitude}),360),2) + POWER(ABS(a.lat - #{latitude}),2)) AS distance
+        d.grade_name as gradeName,e.subject_name as subjectName,b.certification_status as certificationStatus ,
+        (POWER(MOD(ABS(a.lon - #{lon}),360),2) + POWER(ABS(a.lat - #{lat}),2)) AS distance
         from need_info a
         LEFT JOIN user_info b on a.user_id = b.user_id
-        LEFT JOIN sys_user c on b.user_id = c.id
+        LEFT JOIN sys_user c on a.user_id = c.id
         LEFT JOIN grade_info d on d.id = a.teaching_grade_id
         LEFT JOIN subject_info e on e.id = a.teaching_subject_id
         where 1=1
@@ -72,8 +72,8 @@
         <if test="teachingMode != null and teachingMode !=''">
             and a.teaching_mode = #{teachingMode}
         </if>
-        <if test="sax !=null">
-            and a.sax = #{sax}
+        <if test="sex !=null">
+            and a.sex = #{sex}
         </if>
         <if test="teachingAge != null and teachingAge != ''">
             and a.teaching_age = #{teachingAge}
@@ -87,18 +87,18 @@
 
     <select id="selectDetail" resultType="com.education.center.need.vo.NeedDetailVO">
         select a.id as id ,b.organization_id as organizationId,a.teaching_age teachingAge,a.nick_name as nickName,
-        a.user_id as userId ,a.phone as phone,a.sax as sax, a.tallest_diploma as tallestDiploma,
+        a.user_id as userId ,a.phone as phone,a.sex as sex, a.tallest_diploma as tallestDiploma,
         a.graduate_institutions as graduateInstitutions,a.specialized as specialized ,a.teaching_school as
         teachingSchool,
         a.teaching_age as teachingAge,a.teaching_address as teachingAddress,a.teaching_mode as teachingMode,
         a.teaching_time as teachingTime,a.teaching_feature as remuneration,a.remuneration as remuneration,
-        a.lat as lat ,a.lon as lon,a.need_type as needType,a.teacher_photo as teacherPhoto
-        b.user_type as userType,b.teacher_type as teacherType,
-        d.grade_name as gradeName,e.subject_name as subjectName,b.certificationStatus as certificationStatus ,
+        a.lat as lat ,a.lon as lon,a.need_type as needType,a.teacher_photo as teacherPhoto,
+        c.user_type as userType,b.teacher_type as teacherType,
+        d.grade_name as gradeName,e.subject_name as subjectName,b.certification_status as certificationStatus ,
         (POWER(MOD(ABS(a.lon - #{longitude}),360),2) + POWER(ABS(a.lat - #{latitude}),2)) AS distance
         from need_info a
         LEFT JOIN user_info b on a.user_id = b.user_id
-        LEFT JOIN sys_user c on b.user_id = c.id
+        LEFT JOIN sys_user c on a.user_id = c.id
         LEFT JOIN grade_info d on d.id = a.teaching_grade_id
         LEFT JOIN subject_info e on e.id = a.teaching_subject_id
         where a.id = #{id}

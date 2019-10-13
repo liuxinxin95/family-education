@@ -35,7 +35,7 @@ public class GradeInfoController extends BaseController {
     @GetMapping(value ="/getParent")
     @ResponseBody
     public ApiResponse<List<GradeInfoTreeVO>> getParent(){
-        return success(gradeInfoService.getAll());
+        return success(gradeInfoService.getParent());
     }
 
 

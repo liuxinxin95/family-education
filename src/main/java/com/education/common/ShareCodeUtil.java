@@ -19,7 +19,7 @@ public class ShareCodeUtil {
     private static final char[] r=new char[]{'0','1','2','3','4','5','6','7','8','9'};
 
     /** (不能与自定义进制有重复) */
-    private static final char b='O';
+    private static final char b='0';
 
     /** 进制长度 */
     private static final int binLen=r.length;

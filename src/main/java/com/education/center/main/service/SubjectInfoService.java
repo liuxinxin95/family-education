@@ -17,4 +17,11 @@ public interface SubjectInfoService {
      * @return
      */
     List<SubjectInfoVO> getAll();
+
+    /**
+     * 根据年级获取科目
+     * @param gradeId
+     * @return
+     */
+    List<SubjectInfoVO> getByGrade(Integer gradeId);
 }

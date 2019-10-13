@@ -1,6 +1,7 @@
 package com.education.center.need.service.impl;
 
 import com.education.center.need.entity.NeedInfoDO;
+import com.education.center.need.enums.TeachingAgeEnum;
 import com.education.center.need.mapper.NeedInfoDOMapper;
 import com.education.center.need.service.NeedService;
 import com.education.center.need.vo.*;
@@ -99,9 +100,10 @@ public class NeedServiceImpl implements NeedService {
     public PageInfo<NeedInfoVO> getPageList(NeedInfoRequest request) {
         //设置经纬度查询
         setMaxLon(request);
-        PageInfo<NeedInfoVO> objectPageInfo = PageHelper.startPage(request.getPageNum(), request.getPageNum()).doSelectPageInfo(() -> needInfoDOMapper.selectPageList(request));
+        PageInfo<NeedInfoVO> objectPageInfo = PageHelper.startPage(request.getPageNum(), request.getPageSize()).doSelectPageInfo(() -> needInfoDOMapper.selectPageList(request));
         objectPageInfo.getList().parallelStream().forEach(x -> {
-            if (x.getCertificationStatus() > 2) {
+            x.setTeachingAgeText(TeachingAgeEnum.valueCode(x.getTeachingAge()));
+            if (x.getCertificationStatus() != null && x.getCertificationStatus() > 2) {
                 x.setCertificationStatusText("已认证");
             } else {
                 x.setCertificationStatusText("未认证");
@@ -132,7 +134,7 @@ public class NeedServiceImpl implements NeedService {
     public NeedDetailVO getNeedDetail(Integer id, Double longitude, Double latitude) {
         NeedDetailVO needDetailVO = needInfoDOMapper.selectDetail(id, longitude, latitude);
         if (needDetailVO != null) {
-            if (needDetailVO.getCertificationStatus() > 2) {
+            if (needDetailVO.getCertificationStatus() != null && needDetailVO.getCertificationStatus() > 2) {
                 needDetailVO.setCertificationStatusText("已认证");
             } else {
                 needDetailVO.setCertificationStatusText("未认证");

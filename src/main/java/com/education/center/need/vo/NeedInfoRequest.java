@@ -26,7 +26,7 @@ public class NeedInfoRequest extends PageRequest {
     private String teachingMode;
 
     @ApiModelProperty(value = "性别")
-    private Integer sax;
+    private Integer sex;
 
 
     @ApiModelProperty(value = "教学经验")

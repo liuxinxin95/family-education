@@ -58,7 +58,7 @@ public class NeedInfoController extends BaseController {
     @ApiOperation(value = "获取需求详情")
     @GetMapping(value = "/getNeedDetail")
     @ResponseBody
-    public ApiResponse<NeedDetailVO> getNeedDetail(@RequestParam("id") @ApiParam(value = "需求id") Integer id,@ApiParam(value = "需求id") @RequestParam("经度") Double longitude,@ApiParam(value = "维度") @RequestParam("latitude") Double latitude) {
+    public ApiResponse<NeedDetailVO> getNeedDetail(@RequestParam("id") @ApiParam(value = "需求id") Integer id,@ApiParam(value = "经度") @RequestParam("经度") Double longitude,@ApiParam(value = "维度") @RequestParam("latitude") Double latitude) {
         return success(needService.getNeedDetail(id,longitude,latitude));
     }
 }

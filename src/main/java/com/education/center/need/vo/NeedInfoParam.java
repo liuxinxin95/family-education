@@ -31,7 +31,7 @@ public class NeedInfoParam {
      */
     @NotNull(message = "性别不能为空")
     @ApiModelProperty(value = "性别")
-    private Integer sax;
+    private Integer sex;
 
     /**
      * 最高学历

@@ -5,6 +5,7 @@ import com.education.center.main.vo.SubjectInfoVO;
 import com.education.framework.ApiResponse;
 import com.education.framework.BaseController;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +33,14 @@ public class SubjectInfoController extends BaseController {
     @ResponseBody
     public ApiResponse<List<SubjectInfoVO>> getAll(){
         return success(subjectInfoService.getAll());
+    }
+
+
+    @GetMapping(value ="/getByGrade")
+    @ApiOperation(value = "根据年级获取所有课程")
+    @ResponseBody
+    public ApiResponse<List<SubjectInfoVO>> getByGrade(@RequestParam("gradeId") @ApiParam(value = "年级id") Integer gradeId){
+        return success(subjectInfoService.getByGrade(gradeId));
     }
 
 
