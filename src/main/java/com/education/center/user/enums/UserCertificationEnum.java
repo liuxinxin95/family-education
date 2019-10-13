@@ -8,7 +8,7 @@ package com.education.center.user.enums;
  **/
 public enum UserCertificationEnum {
     /**
-     *
+     * 认证状态
      */
     UNVERIFIED(0,"未认证"),
     UNDER_REVIEW(1,"审核中"),

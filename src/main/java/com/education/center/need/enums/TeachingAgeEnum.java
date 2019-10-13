@@ -11,7 +11,7 @@ import com.education.center.user.enums.UserCertificationEnum;
 public enum TeachingAgeEnum {
 
     /**
-     *
+     * 教学年龄
      */
     LESS_FIVE("LESS_FIVE","五年以下"),
     FIVE_TO_TEN("FIVE_TO_TEN","五到十年"),

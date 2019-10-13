@@ -8,7 +8,7 @@ package com.education.center.need.enums;
  **/
 public enum TeachingModeEnum {
     /**
-     *
+     * 教学方式
      */
     THEDOOR_STUDENTS("THEDOOR_STUDENTS","学生上门"),
     THEDOOR_TEACHER("THEDOOR_TEACHER","老师上门"),
