@@ -6,6 +6,8 @@ import com.education.exception.RRException;
 import com.github.qcloudsms.SmsSingleSender;
 import com.github.qcloudsms.SmsSingleSenderResult;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
@@ -24,6 +26,7 @@ import java.util.regex.Pattern;
 @Component
 public class SmsBiz {
 
+    private static Logger logger = LoggerFactory.getLogger(SmsBiz.class);
     private static final String VERIFY_CODES = "0123456789";
 
     private int appid = 23881946;
@@ -59,6 +62,7 @@ public class SmsBiz {
             SmsSingleSender sender = new SmsSingleSender(appid, appkey);
             SmsSingleSenderResult result = sender.sendWithParam("86", phone,
                     templateId, params, smsSign, "", "");
+            logger.info("{}手机号验证码为{}", phone, captcha);
             System.out.println(JSONObject.toJSONString(result));
         } catch (Exception e) {
             // HTTP 响应码错误

@@ -1,14 +1,17 @@
 package com.education.controller.user;
+import	java.net.Authenticator;
 
 import com.education.center.user.service.SysUserService;
 import com.education.center.user.vo.UserCertificationVO;
 import com.education.center.user.vo.UserInfoVO;
 import com.education.center.user.vo.UserVO;
+import com.education.common.SmsBiz;
 import com.education.common.SysUser;
 import com.education.common.UserContext;
 import com.education.framework.ApiResponse;
 import com.education.framework.BaseController;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +27,9 @@ public class UserController extends BaseController {
 
     @Autowired
     private SysUserService sysUserService;
+
+    @Autowired
+    private SmsBiz smsBiz;
 
     /**
      * 修改用户信息
@@ -58,7 +64,7 @@ public class UserController extends BaseController {
      */
     @ApiOperation(value = "修改手机号")
     @GetMapping(value = "/updatePhone")
-    public ApiResponse updatePhone(@RequestParam("phone") String phone, @RequestParam("smsCaptcha") String smsCaptcha) {
+    public ApiResponse updatePhone(@RequestParam("phone")@ApiParam(value = "电话号码") String phone,@ApiParam(value = "验证码") @RequestParam("smsCaptcha") String smsCaptcha) {
         sysUserService.updatePhone(phone, smsCaptcha);
         return success(true);
     }
@@ -85,5 +91,12 @@ public class UserController extends BaseController {
     @GetMapping(value = "/getUserCertification")
     public ApiResponse<UserCertificationVO> getUserCertification() {
         return success(sysUserService.getUserCertification());
+    }
+
+    @ApiOperation(value = "获取验证码")
+    @GetMapping(value = "/SmsBiz")
+    public ApiResponse<Boolean> SmsBiz(String phone){
+        smsBiz.sendSms(phone);
+        return success(true);
     }
 }

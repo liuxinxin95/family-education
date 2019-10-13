@@ -7,7 +7,9 @@ import com.education.center.main.service.CityService;
 import com.education.center.main.vo.SysDistrictVO;
 import com.education.framework.ApiResponse;
 import com.education.framework.BaseController;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +33,7 @@ public class DistrictController extends BaseController {
     @GetMapping(value = "/getCityByPid")
     @ApiOperation(value = "根据pid获取城市信息（三级联动，初始化1）")
     @ResponseBody
-    public ApiResponse<List<SysDistrictVO>> getCityByPid(@RequestParam("pid") Integer pid) {
+    public ApiResponse<List<SysDistrictVO>> getCityByPid(@RequestParam("pid")@ApiParam(value = "夫级id，身份查询1") Integer pid) {
         return success(cityService.getCityByPid(pid));
     }
 }
