@@ -1,6 +1,7 @@
 package com.education.controller.main;
 
 import com.education.center.main.service.GradeInfoService;
+import com.education.center.main.vo.GradeInfoTreeVO;
 import com.education.center.main.vo.GradeInfoVO;
 import com.education.framework.ApiResponse;
 import com.education.framework.BaseController;
@@ -31,18 +32,10 @@ public class GradeInfoController extends BaseController {
      */
     @GetMapping(value ="/getParent")
     @ResponseBody
-    public ApiResponse<List<GradeInfoVO>> getParent(){
-        return success(gradeInfoService.getParent());
-    }
-
-    /**
-     * 以树状形式展示年级信息
-     * @return
-     */
-    @GetMapping(value ="/getAllTree")
-    @ResponseBody
-    public ApiResponse<List<GradeInfoVO>> getAllTree(){
+    public ApiResponse<List<GradeInfoTreeVO>> getParent(){
         return success(gradeInfoService.getAll());
     }
+
+
 
 }

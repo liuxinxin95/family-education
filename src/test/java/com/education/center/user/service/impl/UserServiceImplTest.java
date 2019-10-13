@@ -2,6 +2,7 @@ package com.education.center.user.service.impl;
 
 import com.education.FamilyEducationApplication;
 import com.education.center.user.service.SysUserService;
+import com.education.center.user.vo.LoginVO;
 import com.education.center.user.vo.UserVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +22,7 @@ public class UserServiceImplTest {
         userVO.setOpenId("123");
         userVO.setUserName("233");
         userVO.setAvatar("222");
-        String login = userService.login(userVO);
+        LoginVO login = userService.login(userVO);
         System.out.println(login);
     }
 }

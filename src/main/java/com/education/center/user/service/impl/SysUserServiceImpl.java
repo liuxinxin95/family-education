@@ -6,9 +6,11 @@ import com.education.center.user.enums.UserCertificationEnum;
 import com.education.center.user.mapper.SysUserDOMapper;
 import com.education.center.user.mapper.UserInfoDOMapper;
 import com.education.center.user.service.SysUserService;
+import com.education.center.user.vo.LoginVO;
 import com.education.center.user.vo.UserInfoVO;
 import com.education.center.user.vo.UserVO;
 import com.education.center.user.vo.UserCertificationVO;
+import com.education.common.ShareCodeUtil;
 import com.education.common.SmsBiz;
 import com.education.common.SysUser;
 import com.education.common.UserContext;
@@ -49,6 +51,23 @@ public class SysUserServiceImpl implements SysUserService {
     private static Logger log = LoggerFactory.getLogger(SysUserServiceImpl.class);
 
     /**
+     * 校验用户是否存在
+     *
+     * @param openId
+     * @return
+     */
+    @Override
+    public Boolean checkUser(String openId) {
+        SysUserDO sysUserDO = new SysUserDO();
+        sysUserDO.setOpenId(openId);
+        SysUserDO sysUserDO1 = sysUserDOMapper.selectOne(sysUserDO);
+        if (sysUserDO1 == null) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * 登录成功返回session
      *
      * @param userVO
@@ -56,20 +75,29 @@ public class SysUserServiceImpl implements SysUserService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public String login(UserVO userVO) {
+    public LoginVO login(UserVO userVO) {
         SysUserDO sysUserDO = new SysUserDO();
         sysUserDO.setOpenId(userVO.getOpenId());
         SysUserDO sysUserDO1 = sysUserDOMapper.selectOne(sysUserDO);
         if (sysUserDO1 == null) {
+            if (userVO.getUserType() == null) {
+                throw new RRException("请选择身份");
+            }
             sysUserDO1 = BeanMapUtil.convertObject(userVO, SysUserDO.class);
             sysUserDO1.setCreateTime(new Date());
             sysUserDO1.setUpdateTime(new Date());
-            sysUserDO1.setInviteCode(1111);
-            sysUserDOMapper.insert(sysUserDO1);
+            sysUserDOMapper.insertSelective(sysUserDO1);
+            sysUserDO1.setInviteCode(getInviteCode(sysUserDO1.getId()));
+            sysUserDOMapper.updateByPrimaryKey(sysUserDO1);
+            //添加钱包
+            //添加积分
         }
         //生成权限
         String jwt = JwtUtil.generateToken(sysUserDO1);
-        return jwt;
+        LoginVO loginVO = new LoginVO();
+        loginVO.setSession(jwt);
+        loginVO.setUserType(sysUserDO1.getUserType());
+        return loginVO;
     }
 
     /**
@@ -137,6 +165,7 @@ public class SysUserServiceImpl implements SysUserService {
     @Transactional(rollbackFor = Exception.class)
     public void certification(UserInfoVO userInfoVO) {
         SysUserDO user = getUser();
+        userInfoVO.setUserType(user.getUserType());
         if (userInfoVO.getUserType() == null) {
             throw new RRException("请指定审核类型");
         }
@@ -203,21 +232,22 @@ public class SysUserServiceImpl implements SysUserService {
 
     /**
      * 获取用户当前认证状态
+     *
      * @return
      */
     @Override
-    public UserCertificationVO getUserCertification(){
+    public UserCertificationVO getUserCertification() {
         UserCertificationVO userCertificationVO = new UserCertificationVO();
         SysUserDO user = getUser();
         UserInfoDO infoDO = new UserInfoDO();
         infoDO.setUserId(user.getId());
         UserInfoDO userInfoDO1 = userInfoDOMapper.selectOne(infoDO);
         userCertificationVO.setUserId(user.getId());
-        if (userInfoDO1 == null){
+        if (userInfoDO1 == null) {
             userCertificationVO.setPaySingleStatus(0);
             userCertificationVO.setPaySingleStatus(UserCertificationEnum.UNVERIFIED.getType());
             userCertificationVO.setCertificationText(UserCertificationEnum.UNVERIFIED.getName());
-        }else {
+        } else {
             userCertificationVO.setPaySingleStatus(userInfoDO1.getPaySingleStatus());
             userCertificationVO.setPaySingleStatus(userInfoDO1.getCertificationStatus());
             userCertificationVO.setCertificationText(UserCertificationEnum.valueType(userCertificationVO.getCertificationType()));
@@ -240,5 +270,25 @@ public class SysUserServiceImpl implements SysUserService {
             throw new RRException("用户信息查询错误");
         }
         return sysUserDO1;
+    }
+
+    /**
+     * 邀请码获取
+     *
+     * @param userId
+     * @return
+     */
+    private Integer getInviteCode(Integer userId) {
+        String code = ShareCodeUtil.toSerialCode(userId);
+        Integer integer = Integer.valueOf(code);
+        SysUserDO userDO = new SysUserDO();
+        userDO.setInviteCode(integer);
+
+        SysUserDO userDO1 = sysUserDOMapper.selectOne(userDO);
+        if (userDO1 == null) {
+            return integer;
+        } else {
+            return getInviteCode(userId);
+        }
     }
 }

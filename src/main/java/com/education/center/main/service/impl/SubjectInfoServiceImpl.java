@@ -33,4 +33,11 @@ public class SubjectInfoServiceImpl implements SubjectInfoService {
         List<SubjectInfoDO> subjectInfoDOS = subjectInfoDOMapper.selectAll();
         return BeanMapUtil.convertList(subjectInfoDOS,SubjectInfoVO.class);
     }
+
+    public List<SubjectInfoVO> getByGrade(Integer gradeId){
+        SubjectInfoDO subjectInfoDO = new SubjectInfoDO();
+        subjectInfoDO.setGradeId(gradeId);
+        List<SubjectInfoDO> infoDOS = subjectInfoDOMapper.select(subjectInfoDO);
+        return BeanMapUtil.convertList(infoDOS,SubjectInfoVO.class);
+    }
 }

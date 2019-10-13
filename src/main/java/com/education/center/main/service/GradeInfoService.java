@@ -1,5 +1,6 @@
 package com.education.center.main.service;
 
+import com.education.center.main.vo.GradeInfoTreeVO;
 import com.education.center.main.vo.GradeInfoVO;
 
 import java.util.List;
@@ -14,10 +15,14 @@ public interface GradeInfoService {
 
 
     /**
+     * 获取所有年纪
+     * @return
+     */
+    List<GradeInfoTreeVO> getAll();
+
+    /**
      * 只获取夫级年级名称
      * @return
      */
-    List<GradeInfoVO> getAll();
-
-
+    List<GradeInfoTreeVO> getParent();
 }

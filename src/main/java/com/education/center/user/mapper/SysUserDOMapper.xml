@@ -17,11 +17,12 @@
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="professional" jdbcType="VARCHAR" property="professional" />
     <result column="Invite_code" jdbcType="INTEGER" property="inviteCode" />
+    <result column="user_type" jdbcType="INTEGER" property="userType" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
     id, openId, user_name, phone, sex, birthday, avatar, city_code, street_code, address, 
-    Invite_code, create_time, update_time
+    Invite_code,user_type, create_time, update_time
   </sql>
 </mapper>

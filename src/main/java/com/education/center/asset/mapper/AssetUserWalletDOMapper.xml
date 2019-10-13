@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.education.center.user.mapper.UserWalletDOMapper">
-  <resultMap id="BaseResultMap" type="com.education.center.user.entity.UserWalletDO">
+<mapper namespace="com.education.center.asset.mapper.AssetUserWalletDOMapper">
+  <resultMap id="BaseResultMap" type="com.education.center.asset.entity.AssetUserWalletDO">
     <!--
       WARNING - @mbg.generated
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="wallet_balance" jdbcType="BIGINT" property="walletBalance" />
+    <result column="current_amount" jdbcType="BIGINT" property="currentAmount" />
+    <result column="max_withdraw_amount" jdbcType="BIGINT" property="maxWithdrawAmount" />
+    <result column="status" jdbcType="TINYINT" property="status" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
@@ -15,6 +16,6 @@
     <!--
       WARNING - @mbg.generated
     -->
-    id, user_id, wallet_balance, create_time, update_time
+    id, current_amount, max_withdraw_amount, status, create_time, update_time
   </sql>
 </mapper>

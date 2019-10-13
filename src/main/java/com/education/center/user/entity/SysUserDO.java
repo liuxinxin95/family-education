@@ -81,6 +81,11 @@ public class SysUserDO {
     private Date updateTime;
 
     /**
+     *
+     */
+    @Column(name = "user_type")
+    private Integer userType;
+    /**
      * @return id
      */
     public Integer getId() {
@@ -316,5 +321,13 @@ public class SysUserDO {
 
     public void setProfessional(String professional) {
         this.professional = professional;
+    }
+
+    public Integer getUserType() {
+        return userType;
+    }
+
+    public void setUserType(Integer userType) {
+        this.userType = userType;
     }
 }

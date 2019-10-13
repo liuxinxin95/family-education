@@ -25,16 +25,6 @@ public class UserController extends BaseController {
     private SysUserService sysUserService;
 
     /**
-     * 列表
-     */
-    @GetMapping(value = "/list")
-    public ApiResponse list() {
-        UserContext<SysUser> context = UserContext.getContext();
-        SysUser currentUser = context.getCurrentUser();
-        return success("");
-    }
-
-    /**
      * 修改用户信息
      *
      * @param userVO

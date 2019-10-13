@@ -60,7 +60,7 @@
         LEFT JOIN subject_info e on e.id = a.teaching_subject_id
         where 1=1
         <if test="gradeId != null and gradeId != 0">
-            and d.id = #{gradeId}
+            and ( d.id = #{gradeId}  or d.parent_id = #{gradeId} )
         </if>
         <if test="subjectId != null and subjectId != 0">
             and e.id = #{subjectId}

@@ -1,6 +1,7 @@
 package com.education.center.user.service;
 
 import com.education.center.user.entity.SysUserDO;
+import com.education.center.user.vo.LoginVO;
 import com.education.center.user.vo.UserCertificationVO;
 import com.education.center.user.vo.UserInfoVO;
 import com.education.center.user.vo.UserVO;
@@ -14,12 +15,18 @@ import com.education.center.user.vo.UserVO;
 public interface SysUserService {
 
     /**
+     * 校验用户是否存在
+     * @param openId
+     * @return
+     */
+    Boolean checkUser(String openId);
+    /**
      * 登录成功返回session
      *
      * @param userVO
      * @return
      */
-    String login(UserVO userVO);
+    LoginVO login(UserVO userVO);
 
     /**
      * 修改用户信息
