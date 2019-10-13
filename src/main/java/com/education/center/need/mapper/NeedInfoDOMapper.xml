@@ -28,6 +28,10 @@
         <result column="teacher_photo" jdbcType="VARCHAR" property="teacherPhoto"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+
+        <result column="province_id" jdbcType="INTEGER" property="provinceId"/>
+        <result column="city_id" jdbcType="INTEGER" property="cityId"/>
+        <result column="district_id" jdbcType="INTEGER" property="districtId"/>
     </resultMap>
     <sql id="Base_Column_List">
         <!--
@@ -36,7 +40,7 @@
         id, user_id, nick_name, phone, sax, tallest_diploma, graduate_institutions, specialized,
         teaching_school, teaching_age, teaching_subject_id, teaching_grade_id, teaching_address,
         teaching_mode, teaching_time, remuneration, teaching_feature, lon, lat, need_type,
-        teacher_photo, create_time, update_time
+        teacher_photo, create_time, update_time,province_id,city_id,district_id
     </sql>
 
     <select id="selectMyNeed" resultType="com.education.center.need.vo.NeedOverviewVO">
@@ -60,7 +64,7 @@
         LEFT JOIN subject_info e on e.id = a.teaching_subject_id
         where 1=1
         <if test="gradeId != null and gradeId != 0">
-            and ( d.id = #{gradeId}  or d.parent_id = #{gradeId} )
+            and ( d.id = #{gradeId} or d.parent_id = #{gradeId} )
         </if>
         <if test="subjectId != null and subjectId != 0">
             and e.id = #{subjectId}

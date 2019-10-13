@@ -122,6 +122,27 @@ public class NeedInfoDO {
     @Column(name = "teacher_photo")
     private String teacherPhoto;
 
+
+    /**
+     * 省份id
+     */
+    @Column(name = "province_id")
+    private Integer provinceId;
+
+
+    /**
+     * 城市id
+     */
+    @Column(name = "city_id")
+    private Integer cityId;
+    /**
+     * 区域id
+     */
+    @Column(name = "district_id")
+    private Integer districtId;
+
+
+
     @Column(name = "create_time")
     private Date createTime;
 
@@ -528,5 +549,29 @@ public class NeedInfoDO {
      */
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getProvinceId() {
+        return provinceId;
+    }
+
+    public void setProvinceId(Integer provinceId) {
+        this.provinceId = provinceId;
+    }
+
+    public Integer getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(Integer cityId) {
+        this.cityId = cityId;
+    }
+
+    public Integer getDistrictId() {
+        return districtId;
+    }
+
+    public void setDistrictId(Integer districtId) {
+        this.districtId = districtId;
     }
 }

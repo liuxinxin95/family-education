@@ -26,7 +26,7 @@ public class AssetUserWalletDO {
     /**
      * 1--可用，0-不可用
      */
-    private Byte status;
+    private Integer status;
 
     /**
      * 创建时间
@@ -99,7 +99,7 @@ public class AssetUserWalletDO {
      *
      * @return status - 1--可用，0-不可用
      */
-    public Byte getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
@@ -108,7 +108,7 @@ public class AssetUserWalletDO {
      *
      * @param status 1--可用，0-不可用
      */
-    public void setStatus(Byte status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

@@ -5,6 +5,7 @@ import com.education.center.main.vo.GradeInfoTreeVO;
 import com.education.center.main.vo.GradeInfoVO;
 import com.education.framework.ApiResponse;
 import com.education.framework.BaseController;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,7 @@ public class GradeInfoController extends BaseController {
      * 获取夫级年级信息
      * @return
      */
+    @ApiOperation(value = "获取父类年级信息")
     @GetMapping(value ="/getParent")
     @ResponseBody
     public ApiResponse<List<GradeInfoTreeVO>> getParent(){

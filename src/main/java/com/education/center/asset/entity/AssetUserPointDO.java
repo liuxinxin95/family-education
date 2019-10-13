@@ -8,14 +8,9 @@ public class AssetUserPointDO {
     @Id
     private Integer id;
 
-    /**
-     * 用户id
-     */
-    @Column(name = "user_id")
-    private Integer userId;
 
     /**
-     * 积分月
+     * 积分余额
      */
     @Column(name = "amount_point")
     private Long amountPoint;
@@ -23,7 +18,7 @@ public class AssetUserPointDO {
     /**
      * 1--可用，0-不可用
      */
-    private Byte status;
+    private Integer status;
 
     /**
      * 创建时间
@@ -52,24 +47,6 @@ public class AssetUserPointDO {
     }
 
     /**
-     * 获取用户id
-     *
-     * @return user_id - 用户id
-     */
-    public Integer getUserId() {
-        return userId;
-    }
-
-    /**
-     * 设置用户id
-     *
-     * @param userId 用户id
-     */
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    /**
      * 获取积分月
      *
      * @return amount_ point - 积分月
@@ -92,7 +69,7 @@ public class AssetUserPointDO {
      *
      * @return status - 1--可用，0-不可用
      */
-    public Byte getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
@@ -101,7 +78,7 @@ public class AssetUserPointDO {
      *
      * @param status 1--可用，0-不可用
      */
-    public void setStatus(Byte status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

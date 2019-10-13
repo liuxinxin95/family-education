@@ -1,5 +1,7 @@
 package com.education.center.user.service.impl;
 
+import com.education.center.asset.service.AssetUserPointService;
+import com.education.center.asset.service.AssetUserWalletService;
 import com.education.center.user.entity.SysUserDO;
 import com.education.center.user.entity.UserInfoDO;
 import com.education.center.user.enums.UserCertificationEnum;
@@ -48,6 +50,12 @@ public class SysUserServiceImpl implements SysUserService {
     @Autowired
     private SmsBiz smsBiz;
 
+    @Autowired
+    private AssetUserWalletService assetUserWalletService;
+
+    @Autowired
+    private AssetUserPointService assetUserPointService;
+
     private static Logger log = LoggerFactory.getLogger(SysUserServiceImpl.class);
 
     /**
@@ -90,7 +98,9 @@ public class SysUserServiceImpl implements SysUserService {
             sysUserDO1.setInviteCode(getInviteCode(sysUserDO1.getId()));
             sysUserDOMapper.updateByPrimaryKey(sysUserDO1);
             //添加钱包
+            assetUserWalletService.addUserWallet(sysUserDO1.getId());
             //添加积分
+            assetUserPointService.addUserPoint(sysUserDO1.getId());
         }
         //生成权限
         String jwt = JwtUtil.generateToken(sysUserDO1);
