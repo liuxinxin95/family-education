@@ -9,5 +9,5 @@ import	java.io.Serializable;
  **/
 public class UserWalletRecordResponse implements Serializable {
 
-    private
+
 }
