@@ -4,7 +4,6 @@ import com.education.exception.RRException;
 import com.education.framework.ApiResponse;
 import com.education.framework.ApiStatusCode;
 import com.education.framework.BaseController;
-import com.education.framework.TraceContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;

@@ -19,7 +19,7 @@
   </sql>
 
   <update id="updateList" parameterType="com.education.center.main.entity.SysDistrictDO">
-    <foreach collection="districts" item="item" index="index" open="" close="" separator=";">
+    <foreach close="" collection="districts" index="index" item="item" open="" separator=";">
       update sys_district
       set initial = #{item.initial}
       where district_id = #{item.districtId}
