@@ -1,4 +1,4 @@
-package com.education.center.user.vo;
+package com.education.center.user.param;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -15,7 +15,7 @@ import java.util.Date;
  **/
 @Data
 @ApiModel
-public class UserVO implements Serializable {
+public class UserParam implements Serializable {
 
     /**
      * 微信id
@@ -35,7 +35,7 @@ public class UserVO implements Serializable {
     /**
      * 性别：0女1男
      */
-    @ApiModelProperty("性别：0女1男")
+    @ApiModelProperty("性别：1男2女")
     private Long sex;
 
     /**
@@ -61,24 +61,6 @@ public class UserVO implements Serializable {
      */
     @ApiModelProperty("用户类型：1老师，2机构")
     private Integer userType;
-
-    /**
-     * 省份id
-     */
-    @ApiModelProperty("省份名称")
-    private Integer provinceName;
-
-    /**
-     * 城市id
-     */
-    @ApiModelProperty("城市名称")
-    private Integer cityName;
-
-    /**
-     * 区域id
-     */
-    @ApiModelProperty("区域名称")
-    private Integer districtName;
 
     /**
      * 省份id

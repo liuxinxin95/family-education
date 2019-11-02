@@ -15,5 +15,9 @@ public class SysUser implements Serializable {
     private String openId;
     
     private String userName;
+
+    private String phone;
+
+    private Integer id;
     
 }

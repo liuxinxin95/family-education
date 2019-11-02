@@ -1,5 +1,6 @@
 package com.education.config;
 
+import com.alibaba.fastjson.JSONObject;
 import com.education.common.SysUser;
 import com.education.common.UserContext;
 import com.education.util.JwtUtil;
@@ -15,9 +16,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 
+    private static final List<String> IGNORE_PATH = Arrays.asList("/swagger", "/api-docs", "/webjars","/doc","/api/login/");
 
 
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
@@ -27,17 +32,29 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         String header = request.getHeader("Authorization");
-
+        String serverPath = request.getRequestURI();
+        if (IGNORE_PATH.stream().anyMatch(path -> serverPath.toLowerCase().contains(path))) {
+            chain.doFilter(request, response);
+            return;
+        }
         if (header == null || !header.startsWith("Bearer ")) {
             chain.doFilter(request, response);
             return  ;
         }
 
         UsernamePasswordAuthenticationToken authentication = getAuthentication(request);
+        JSONObject object = JSONObject.parseObject(authentication.getPrincipal().toString());
+        object.getString("openId");
+        object.getString("userName");
+        object.getString("phone");
+        object.getString("userId");
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         SysUser sysUser = new SysUser();
-        sysUser.setOpenId(authentication.getPrincipal().toString());
+        sysUser.setOpenId(object.getString("openId"));
+        sysUser.setUserName(object.getString("userName"));
+        sysUser.setPhone(object.getString("phone"));
+        sysUser.setId(object.getInteger("userId"));
         UserContext.<SysUser>getContext().setCurrentUser(sysUser);
         chain.doFilter(request, response);
     }
@@ -47,9 +64,8 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
         if (token != null) {
             // parse the token.
             Claims claims = JwtUtil.validateToken(token);
-            String username=claims.getSubject();
-            if (username != null) {
-                return new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>());
+            if (claims.getSubject() != null) {
+                return new UsernamePasswordAuthenticationToken(claims.getSubject(), null, new ArrayList<>());
             }
             return null;
         }

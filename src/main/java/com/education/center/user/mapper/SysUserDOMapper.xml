@@ -11,24 +11,38 @@
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="sex" jdbcType="BIGINT" property="sex" />
     <result column="birthday" jdbcType="DATE" property="birthday" />
-    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
-    <result column="city_code" jdbcType="VARCHAR" property="cityCode" />
-    <result column="street_code" jdbcType="VARCHAR" property="streetCode" />
     <result column="address" jdbcType="VARCHAR" property="address" />
-    <result column="professional" jdbcType="VARCHAR" property="professional" />
     <result column="invite_code" jdbcType="INTEGER" property="inviteCode" />
-    <result column="user_type" jdbcType="INTEGER" property="userType" />
+    <result column="professional" jdbcType="VARCHAR" property="professional" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="user_type" jdbcType="INTEGER" property="userType" />
+    <result column="province_id" jdbcType="INTEGER" property="provinceId" />
+    <result column="city_id" jdbcType="INTEGER" property="cityId" />
+    <result column="district_id" jdbcType="INTEGER" property="districtId" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, open_id, user_name, phone, sex, birthday, avatar, city_code, street_code, address,
-    invite_code,user_type, create_time, update_time
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, open_id, user_name, phone, sex, birthday, address, invite_code, professional,
+    create_time, update_time, user_type, province_id, city_id, district_id,avatar
   </sql>
     <insert id="insertOne" parameterType="com.education.center.user.entity.SysUserDO" useGeneratedKeys="true" keyProperty="id">
     insert into sys_user(open_id, user_name, phone, sex, birthday, avatar, city_code, street_code, address,professional,
     invite_code,user_type,create_time, update_time)
     values(#{openId},#{userName},#{phone},#{sex},#{birthday},#{avatar},#{cityCode},#{streetCode},#{address},#{professional},#{inviteCode},#{userType},#{createTime},#{updateTime})
-
     </insert>
+  <select id="selectByOpendId" resultType="com.education.center.user.vo.UserVO">
+      select
+    a.id, open_id as openId , user_name as userName, phone, sex, birthday, address, invite_code as inviteCode, professional,
+    a.create_time as createTime, a.update_time as updateTime, user_type as userType, province_id as provinceId, city_id as cityId,
+    a.district_id as districtId,avatar,b.district as provinceName,c.district as cityName,d.district as districtName
+    from sys_user a
+    left  join sys_district b on a.province_id = b.district_id
+    left  join sys_district c on a.city_id = c.district_id
+    left  join sys_district d on a.district_id = d.district_id
+    where a.open_id = #{openId}
+  </select>
 </mapper>

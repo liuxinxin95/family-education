@@ -7,6 +7,7 @@ import com.education.center.user.entity.UserInfoDO;
 import com.education.center.user.enums.UserCertificationEnum;
 import com.education.center.user.mapper.SysUserDOMapper;
 import com.education.center.user.mapper.UserInfoDOMapper;
+import com.education.center.user.param.UserParam;
 import com.education.center.user.service.SysUserService;
 import com.education.center.user.vo.LoginVO;
 import com.education.center.user.vo.UserInfoVO;
@@ -83,7 +84,7 @@ public class SysUserServiceImpl implements SysUserService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public LoginVO login(UserVO userVO) {
+    public LoginVO login(UserParam userVO) {
         SysUserDO sysUserDO = new SysUserDO();
         sysUserDO.setOpenId(userVO.getOpenId());
         SysUserDO sysUserDO1 = sysUserDOMapper.selectOne(sysUserDO);
@@ -117,10 +118,11 @@ public class SysUserServiceImpl implements SysUserService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void updateUserInfo(UserVO userVO) {
+    public void updateUserInfo(UserParam userVO) {
         String openId = ((SysUser) UserContext.getContext().getCurrentUser()).getOpenId();
         SysUserDO sysUserDO = new SysUserDO();
         sysUserDO.setOpenId(openId);
+
         SysUserDO sysUserDO1 = sysUserDOMapper.selectOne(sysUserDO);
         if (sysUserDO1 == null) {
             throw new RRException("用户不存在，请重新登录");
@@ -142,10 +144,7 @@ public class SysUserServiceImpl implements SysUserService {
     @Transactional(rollbackFor = Exception.class)
     public UserVO getUserInfo() {
         String openId = ((SysUser) UserContext.getContext().getCurrentUser()).getOpenId();
-        SysUserDO sysUserDO = new SysUserDO();
-        sysUserDO.setOpenId(openId);
-        SysUserDO sysUserDO1 = sysUserDOMapper.selectOne(sysUserDO);
-        return BeanMapUtil.convertObject(sysUserDO1, UserVO.class);
+        return  sysUserDOMapper.selectByOpendId(openId);
     }
 
     /**

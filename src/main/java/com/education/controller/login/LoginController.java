@@ -1,5 +1,6 @@
 package com.education.controller.login;
 
+import com.education.center.user.param.UserParam;
 import com.education.center.user.service.SysUserService;
 import com.education.center.user.vo.LoginVO;
 import com.education.center.user.vo.UserVO;
@@ -25,7 +26,7 @@ public class LoginController extends BaseController {
     @PostMapping(value = "/login")
     @ApiOperation(value = "获取用户信息")
     @ResponseBody
-    public ApiResponse<LoginVO> login(@RequestBody UserVO userVO) {
+    public ApiResponse<LoginVO> login(@RequestBody UserParam userVO) {
         return success(userService.login(userVO));
     }
 

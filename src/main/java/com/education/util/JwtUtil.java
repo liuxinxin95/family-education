@@ -1,5 +1,6 @@
 package com.education.util;
 
+import com.alibaba.fastjson.JSONObject;
 import com.education.center.user.entity.SysUserDO;
 import com.education.center.user.vo.UserVO;
 import io.jsonwebtoken.Claims;
@@ -18,8 +19,10 @@ public class JwtUtil {
         Map<String,Object> param = new HashMap<String,Object>();
         param.put("openId",sysUserDO.getOpenId());
         param.put("userName",sysUserDO.getUserName());
+        param.put("phone",sysUserDO.getPhone());
+        param.put("userId",sysUserDO.getId());
         String jwt = Jwts.builder()
-                .setSubject(sysUserDO.getOpenId())
+                .setSubject(JSONObject.toJSONString(param))
                 .setHeader(param)
                 .setExpiration(new Date(System.currentTimeMillis() + 3600_000_000L))
                 .signWith(SignatureAlgorithm.HS512, SECRET)

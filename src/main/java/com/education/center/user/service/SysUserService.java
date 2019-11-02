@@ -1,6 +1,7 @@
 package com.education.center.user.service;
 
 import com.education.center.user.entity.SysUserDO;
+import com.education.center.user.param.UserParam;
 import com.education.center.user.vo.LoginVO;
 import com.education.center.user.vo.UserCertificationVO;
 import com.education.center.user.vo.UserInfoVO;
@@ -26,14 +27,14 @@ public interface SysUserService {
      * @param userVO
      * @return
      */
-    LoginVO login(UserVO userVO);
+    LoginVO login(UserParam userVO);
 
     /**
      * 修改用户信息
      *
      * @param userVO
      */
-    void updateUserInfo(UserVO userVO);
+    void updateUserInfo(UserParam userVO);
 
     /**
      * 获得用户信息

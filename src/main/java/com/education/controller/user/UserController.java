@@ -1,13 +1,11 @@
 package com.education.controller.user;
-import	java.net.Authenticator;
 
+import com.education.center.user.param.UserParam;
 import com.education.center.user.service.SysUserService;
 import com.education.center.user.vo.UserCertificationVO;
 import com.education.center.user.vo.UserInfoVO;
 import com.education.center.user.vo.UserVO;
 import com.education.common.SmsBiz;
-import com.education.common.SysUser;
-import com.education.common.UserContext;
 import com.education.framework.ApiResponse;
 import com.education.framework.BaseController;
 import io.swagger.annotations.ApiOperation;
@@ -39,7 +37,7 @@ public class UserController extends BaseController {
      */
     @ApiOperation(value = "修改用户信息")
     @PostMapping(value = "/updateUserInfo")
-    public ApiResponse updateUserInfo(@RequestBody UserVO userVO) {
+    public ApiResponse updateUserInfo(@RequestBody UserParam userVO) {
         sysUserService.updateUserInfo(userVO);
         return success(true);
     }
@@ -64,7 +62,7 @@ public class UserController extends BaseController {
      */
     @ApiOperation(value = "修改手机号")
     @GetMapping(value = "/updatePhone")
-    public ApiResponse updatePhone(@RequestParam("phone")@ApiParam(value = "电话号码") String phone,@ApiParam(value = "验证码") @RequestParam("smsCaptcha") String smsCaptcha) {
+    public ApiResponse updatePhone(@RequestParam("phone") @ApiParam(value = "电话号码") String phone, @ApiParam(value = "验证码") @RequestParam("smsCaptcha") String smsCaptcha) {
         sysUserService.updatePhone(phone, smsCaptcha);
         return success(true);
     }
@@ -85,6 +83,7 @@ public class UserController extends BaseController {
 
     /**
      * 获取用户当前认证状态
+     *
      * @return
      */
     @ApiOperation(value = "获取用户当前认证状态")
@@ -95,7 +94,7 @@ public class UserController extends BaseController {
 
     @ApiOperation(value = "获取验证码")
     @GetMapping(value = "/SmsBiz")
-    public ApiResponse<Boolean> SmsBiz(String phone){
+    public ApiResponse<Boolean> SmsBiz(String phone) {
         smsBiz.sendSms(phone);
         return success(true);
     }
