@@ -19,5 +19,7 @@ public class SysUser implements Serializable {
     private String phone;
 
     private Integer id;
-    
+
+    private String account;
+
 }

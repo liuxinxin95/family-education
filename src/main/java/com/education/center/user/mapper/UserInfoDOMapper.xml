@@ -26,6 +26,8 @@
     <result column="rejected_reason" jdbcType="VARCHAR" property="rejectedReason" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="examine_operator_id" jdbcType="INTEGER" property="examineOperatorId" />
+    <result column="examine_operator_name" jdbcType="VARCHAR" property="examineOperatorName" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--
@@ -34,6 +36,7 @@
     id, user_id, legal_person, id_card, business_license_number, id_card_before_photo, 
     id_card_after_photo, id_card_hand_photo, business_license_photo, teacher_certification_photo, 
     organization_id, user_type, examine_status, inviter_user_id, pay_type, pay_single_status, 
-    teacher_type, certification_status, rejected_reason, create_time, update_time
+    teacher_type, certification_status, rejected_reason, create_time, update_time, examine_operator_id, 
+    examine_operator_name
   </sql>
 </mapper>

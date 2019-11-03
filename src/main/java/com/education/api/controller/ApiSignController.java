@@ -1,7 +1,5 @@
 package com.education.api.controller;
 
-import java.nio.file.attribute.BasicFileAttributeView;
-
 import com.education.center.sign.service.SignService;
 import com.education.center.sign.vo.SignRuleAddRequest;
 import com.education.center.sign.vo.SignRuleQueryRequest;
@@ -12,7 +10,10 @@ import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 

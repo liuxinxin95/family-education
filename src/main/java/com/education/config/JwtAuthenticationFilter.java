@@ -22,7 +22,7 @@ import java.util.Map;
 
 public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 
-    private static final List<String> IGNORE_PATH = Arrays.asList("/swagger", "/api-docs", "/webjars","/doc","/api/login/");
+    private static final List<String> IGNORE_PATH = Arrays.asList("/swagger", "/api-docs", "/webjars","/doc","/api/login/","mng/api/login/");
 
 
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {

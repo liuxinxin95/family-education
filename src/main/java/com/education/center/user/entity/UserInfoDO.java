@@ -129,6 +129,18 @@ public class UserInfoDO {
     private Date updateTime;
 
     /**
+     * 审核人id
+     */
+    @Column(name = "examine_operator_id")
+    private Integer examineOperatorId;
+
+    /**
+     * 审核人名称
+     */
+    @Column(name = "examine_operator_name")
+    private String examineOperatorName;
+
+    /**
      * @return id
      */
     public Integer getId() {
@@ -500,5 +512,41 @@ public class UserInfoDO {
      */
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    /**
+     * 获取审核人id
+     *
+     * @return examine_operator_id - 审核人id
+     */
+    public Integer getExamineOperatorId() {
+        return examineOperatorId;
+    }
+
+    /**
+     * 设置审核人id
+     *
+     * @param examineOperatorId 审核人id
+     */
+    public void setExamineOperatorId(Integer examineOperatorId) {
+        this.examineOperatorId = examineOperatorId;
+    }
+
+    /**
+     * 获取审核人名称
+     *
+     * @return examine_operator_name - 审核人名称
+     */
+    public String getExamineOperatorName() {
+        return examineOperatorName;
+    }
+
+    /**
+     * 设置审核人名称
+     *
+     * @param examineOperatorName 审核人名称
+     */
+    public void setExamineOperatorName(String examineOperatorName) {
+        this.examineOperatorName = examineOperatorName == null ? null : examineOperatorName.trim();
     }
 }

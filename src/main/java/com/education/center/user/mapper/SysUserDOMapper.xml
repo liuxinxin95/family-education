@@ -1,40 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.education.center.user.mapper.SysUserDOMapper">
-  <resultMap id="BaseResultMap" type="com.education.center.user.entity.SysUserDO">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="open_id" jdbcType="VARCHAR" property="openId" />
-    <result column="user_name" jdbcType="VARCHAR" property="userName" />
-    <result column="phone" jdbcType="VARCHAR" property="phone" />
-    <result column="sex" jdbcType="BIGINT" property="sex" />
-    <result column="birthday" jdbcType="DATE" property="birthday" />
-    <result column="address" jdbcType="VARCHAR" property="address" />
-    <result column="invite_code" jdbcType="INTEGER" property="inviteCode" />
-    <result column="professional" jdbcType="VARCHAR" property="professional" />
-    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="user_type" jdbcType="INTEGER" property="userType" />
-    <result column="province_id" jdbcType="INTEGER" property="provinceId" />
-    <result column="city_id" jdbcType="INTEGER" property="cityId" />
-    <result column="district_id" jdbcType="INTEGER" property="districtId" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    id, open_id, user_name, phone, sex, birthday, address, invite_code, professional,
-    create_time, update_time, user_type, province_id, city_id, district_id,avatar
-  </sql>
-    <insert id="insertOne" parameterType="com.education.center.user.entity.SysUserDO" useGeneratedKeys="true" keyProperty="id">
+    <resultMap id="BaseResultMap" type="com.education.center.user.entity.SysUserDO">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="open_id" jdbcType="VARCHAR" property="openId"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="sex" jdbcType="BIGINT" property="sex"/>
+        <result column="birthday" jdbcType="DATE" property="birthday"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="invite_code" jdbcType="INTEGER" property="inviteCode"/>
+        <result column="professional" jdbcType="VARCHAR" property="professional"/>
+        <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="user_type" jdbcType="INTEGER" property="userType"/>
+        <result column="province_id" jdbcType="INTEGER" property="provinceId"/>
+        <result column="city_id" jdbcType="INTEGER" property="cityId"/>
+        <result column="district_id" jdbcType="INTEGER" property="districtId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        id, open_id, user_name, phone, sex, birthday, address, invite_code, professional,
+        create_time, update_time, user_type, province_id, city_id, district_id,avatar
+    </sql>
+    <insert id="insertOne" parameterType="com.education.center.user.entity.SysUserDO" useGeneratedKeys="true"
+            keyProperty="id">
     insert into sys_user(open_id, user_name, phone, sex, birthday, avatar, city_code, street_code, address,professional,
     invite_code,user_type,create_time, update_time)
     values(#{openId},#{userName},#{phone},#{sex},#{birthday},#{avatar},#{cityCode},#{streetCode},#{address},#{professional},#{inviteCode},#{userType},#{createTime},#{updateTime})
     </insert>
-  <select id="selectByOpendId" resultType="com.education.center.user.vo.UserVO">
+    <select id="selectByOpendId" resultType="com.education.center.user.vo.UserVO">
       select
     a.id, open_id as openId , user_name as userName, phone, sex, birthday, address, invite_code as inviteCode, professional,
     a.create_time as createTime, a.update_time as updateTime, user_type as userType, province_id as provinceId, city_id as cityId,
@@ -45,4 +46,64 @@
     left  join sys_district d on a.district_id = d.district_id
     where a.open_id = #{openId}
   </select>
+
+    <select id="selectTeacher" resultType="com.education.api.vo.ApiTeacherVO">
+        SELECT
+        a.id,
+        open_id AS openId,
+        a.user_name AS userName,
+        a.phone,
+        a.sex,
+        a.address,
+        a.create_time AS createTime,
+        a.update_time AS updateTime,
+        a.user_type AS userType,
+        province_id AS provinceId,
+        b.pay_type as payType,
+        b.certification_status as certificationStatus,
+        c.district AS provinceName,
+        d.district AS cityName,
+        e.district AS districtName,
+        b.organization_id as organizationId,
+        b.examine_operator_name as examineOperatorName
+        FROM
+        sys_user a
+        LEFT JOIN user_info b ON a.id = b.user_id
+        LEFT JOIN sys_district c ON a.province_id = c.district_id
+        LEFT JOIN sys_district d ON a.city_id = d.district_id
+        LEFT JOIN sys_district e ON a.district_id = e.district_id
+        WHERE
+        a.user_type = 1
+        <if test="userName !=null and userName!= ''">
+            and a.user_name like concat('%',#{userName},'%')
+        </if>
+        <if test="phone !=null and phone!= ''">
+            and a.phone = #{phone}
+        </if>
+        <if test="provinceId !=null ">
+            and a.province_id = #{provinceId}
+        </if>
+        <if test="cityId !=null ">
+            and a.city_id = #{cityId}
+        </if>
+        <if test="districtId !=null ">
+            and a.district_id = #{districtId}
+        </if>
+        <if test="certification !=null ">
+            and b.certification_status = #{certification}
+        </if>
+
+        <if test="payType !=null  ">
+            <if test="payType == true">
+                and b.pay_type in (1,2)
+            </if>
+            <if test="payType == false">
+                and b.pay_type = 0
+            </if>
+        </if>
+        <if test="teacherType !=null and teacherType == true">
+            b.organization_id != null
+        </if>
+
+    </select>
 </mapper>

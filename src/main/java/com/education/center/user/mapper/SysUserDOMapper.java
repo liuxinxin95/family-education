@@ -1,9 +1,13 @@
 package com.education.center.user.mapper;
 
+import com.education.api.param.QueryTeacherParam;
+import com.education.api.vo.ApiTeacherVO;
 import com.education.center.user.entity.SysUserDO;
 import com.education.center.user.vo.UserVO;
 import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;
+
+import java.util.List;
 
 public interface SysUserDOMapper extends Mapper<SysUserDO> {
 
@@ -15,4 +19,10 @@ public interface SysUserDOMapper extends Mapper<SysUserDO> {
      * @return
      */
     UserVO selectByOpendId(@Param("openId")String openId);
+
+    /**
+     * 老师查询
+     * @return
+     */
+    List<ApiTeacherVO> selectTeacher(QueryTeacherParam param);
 }

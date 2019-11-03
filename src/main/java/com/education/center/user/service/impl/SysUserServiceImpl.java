@@ -103,8 +103,10 @@ public class SysUserServiceImpl implements SysUserService {
             //添加积分
             assetUserPointService.addUserPoint(sysUserDO1.getId());
         }
+        SysUser sysUser = BeanMapUtil.convertObject(sysUserDO1, SysUser.class);
+        sysUser.setAccount(sysUserDO1.getOpenId());
         //生成权限
-        String jwt = JwtUtil.generateToken(sysUserDO1);
+        String jwt = JwtUtil.generateToken(sysUser);
         LoginVO loginVO = new LoginVO();
         loginVO.setSession(jwt);
         loginVO.setUserType(sysUserDO1.getUserType());
@@ -257,8 +259,8 @@ public class SysUserServiceImpl implements SysUserService {
             userCertificationVO.setPaySingleStatus(UserCertificationEnum.UNVERIFIED.getType());
             userCertificationVO.setCertificationText(UserCertificationEnum.UNVERIFIED.getName());
         } else {
-            userCertificationVO.setPaySingleStatus(userInfoDO1.getPaySingleStatus());
-            userCertificationVO.setPaySingleStatus(userInfoDO1.getCertificationStatus());
+            userCertificationVO.setPaySingleStatus(userInfoDO1.getPayType());
+            userCertificationVO.setCertificationType(userInfoDO1.getCertificationStatus());
             userCertificationVO.setCertificationText(UserCertificationEnum.valueType(userCertificationVO.getCertificationType()));
         }
         return userCertificationVO;
