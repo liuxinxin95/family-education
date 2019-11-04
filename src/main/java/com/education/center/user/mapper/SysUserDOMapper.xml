@@ -47,8 +47,8 @@
     where a.open_id = #{openId}
   </select>
 
-    <select id="selectTeacher" resultType="com.education.api.vo.ApiTeacherVO">
-        SELECT
+    <sql id="selectList">
+         SELECT
         a.id,
         open_id AS openId,
         a.user_name AS userName,
@@ -72,8 +72,53 @@
         LEFT JOIN sys_district c ON a.province_id = c.district_id
         LEFT JOIN sys_district d ON a.city_id = d.district_id
         LEFT JOIN sys_district e ON a.district_id = e.district_id
+    </sql>
+    <select id="selectTeacher" resultType="com.education.api.vo.ApiTeacherVO">
+        <include refid="selectList"/>
         WHERE
         a.user_type = 1
+        <if test="userName !=null and userName!= ''">
+            and a.user_name like concat('%',#{userName},'%')
+        </if>
+        <if test="phone !=null and phone!= ''">
+            and a.phone = #{phone}
+        </if>
+        <if test="provinceId !=null ">
+            and a.province_id = #{provinceId}
+        </if>
+        <if test="cityId !=null ">
+            and a.city_id = #{cityId}
+        </if>
+        <if test="districtId !=null ">
+            and a.district_id = #{districtId}
+        </if>
+
+        <if test="certification !=null ">
+            and b.certification_status = #{certification}
+        </if>
+
+        <if test="payType !=null  ">
+            <if test="payType == true">
+                and b.pay_type in (1,2)
+            </if>
+            <if test="payType == false">
+                and b.pay_type = 0
+            </if>
+        </if>
+        <if test="teacherType !=null and teacherType == true">
+            and b.organization_id != null
+        </if>
+        <if test="userIds !=null and userIds.size > 0">
+         and a.id in
+            <foreach close=")" collection="userIds" item="item" open="(" separator=",">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+    <select id="selectOrganization" resultType="com.education.api.vo.ApiOrganizationVO">
+        <include refid="selectList"/>
+        WHERE
+        a.user_type = 2
         <if test="userName !=null and userName!= ''">
             and a.user_name like concat('%',#{userName},'%')
         </if>
@@ -104,6 +149,18 @@
         <if test="teacherType !=null and teacherType == true">
             b.organization_id != null
         </if>
+    </select>
 
+    <select id="selectTeacherByList" resultType="com.education.api.vo.ApiTeacherVO">
+        <include refid="selectList"/>
+        WHERE
+        a.user_type = 1
+
+        <if test="userIds !=null and userIds.size > 0">
+            and a.id in
+            <foreach close=")" collection="userIds" item="item" open="(" separator=",">
+                #{item}
+            </foreach>
+        </if>
     </select>
 </mapper>

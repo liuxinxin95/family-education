@@ -1,42 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.education.center.user.mapper.UserInfoDOMapper">
-  <resultMap id="BaseResultMap" type="com.education.center.user.entity.UserInfoDO">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="legal_person" jdbcType="VARCHAR" property="legalPerson" />
-    <result column="id_card" jdbcType="VARCHAR" property="idCard" />
-    <result column="business_license_number" jdbcType="VARCHAR" property="businessLicenseNumber" />
-    <result column="id_card_before_photo" jdbcType="VARCHAR" property="idCardBeforePhoto" />
-    <result column="id_card_after_photo" jdbcType="VARCHAR" property="idCardAfterPhoto" />
-    <result column="id_card_hand_photo" jdbcType="VARCHAR" property="idCardHandPhoto" />
-    <result column="business_license_photo" jdbcType="VARCHAR" property="businessLicensePhoto" />
-    <result column="teacher_certification_photo" jdbcType="VARCHAR" property="teacherCertificationPhoto" />
-    <result column="organization_id" jdbcType="INTEGER" property="organizationId" />
-    <result column="user_type" jdbcType="INTEGER" property="userType" />
-    <result column="examine_status" jdbcType="INTEGER" property="examineStatus" />
-    <result column="inviter_user_id" jdbcType="INTEGER" property="inviterUserId" />
-    <result column="pay_type" jdbcType="INTEGER" property="payType" />
-    <result column="pay_single_status" jdbcType="INTEGER" property="paySingleStatus" />
-    <result column="teacher_type" jdbcType="INTEGER" property="teacherType" />
-    <result column="certification_status" jdbcType="INTEGER" property="certificationStatus" />
-    <result column="rejected_reason" jdbcType="VARCHAR" property="rejectedReason" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="examine_operator_id" jdbcType="INTEGER" property="examineOperatorId" />
-    <result column="examine_operator_name" jdbcType="VARCHAR" property="examineOperatorName" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    id, user_id, legal_person, id_card, business_license_number, id_card_before_photo, 
-    id_card_after_photo, id_card_hand_photo, business_license_photo, teacher_certification_photo, 
-    organization_id, user_type, examine_status, inviter_user_id, pay_type, pay_single_status, 
-    teacher_type, certification_status, rejected_reason, create_time, update_time, examine_operator_id, 
-    examine_operator_name
-  </sql>
+    <resultMap id="BaseResultMap" type="com.education.center.user.entity.UserInfoDO">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="legal_person" jdbcType="VARCHAR" property="legalPerson"/>
+        <result column="id_card" jdbcType="VARCHAR" property="idCard"/>
+        <result column="business_license_number" jdbcType="VARCHAR" property="businessLicenseNumber"/>
+        <result column="id_card_before_photo" jdbcType="VARCHAR" property="idCardBeforePhoto"/>
+        <result column="id_card_after_photo" jdbcType="VARCHAR" property="idCardAfterPhoto"/>
+        <result column="id_card_hand_photo" jdbcType="VARCHAR" property="idCardHandPhoto"/>
+        <result column="business_license_photo" jdbcType="VARCHAR" property="businessLicensePhoto"/>
+        <result column="teacher_certification_photo" jdbcType="VARCHAR" property="teacherCertificationPhoto"/>
+        <result column="organization_id" jdbcType="INTEGER" property="organizationId"/>
+        <result column="user_type" jdbcType="INTEGER" property="userType"/>
+        <result column="examine_status" jdbcType="INTEGER" property="examineStatus"/>
+        <result column="inviter_user_id" jdbcType="INTEGER" property="inviterUserId"/>
+        <result column="pay_type" jdbcType="INTEGER" property="payType"/>
+        <result column="pay_single_status" jdbcType="INTEGER" property="paySingleStatus"/>
+        <result column="teacher_type" jdbcType="INTEGER" property="teacherType"/>
+        <result column="certification_status" jdbcType="INTEGER" property="certificationStatus"/>
+        <result column="rejected_reason" jdbcType="VARCHAR" property="rejectedReason"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="examine_operator_id" jdbcType="INTEGER" property="examineOperatorId"/>
+        <result column="examine_operator_name" jdbcType="VARCHAR" property="examineOperatorName"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        id, user_id, legal_person, id_card, business_license_number, id_card_before_photo,
+        id_card_after_photo, id_card_hand_photo, business_license_photo, teacher_certification_photo,
+        organization_id, user_type, examine_status, inviter_user_id, pay_type, pay_single_status,
+        teacher_type, certification_status, rejected_reason, create_time, update_time, examine_operator_id,
+        examine_operator_name
+    </sql>
+
+    <select id="selectOrganizationTeacherNum" resultType="com.education.api.vo.ApiOrganizationVO">
+        select count(id) as teacherNum,organization_id as id from user_info where organization_id in
+        <foreach close=")" collection="organizationIds" item="item" open="(" separator=",">
+            #{item}
+        </foreach>
+        GROUP BY organization_id
+    </select>
 </mapper>
