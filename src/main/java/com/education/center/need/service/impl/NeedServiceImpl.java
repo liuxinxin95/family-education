@@ -1,5 +1,8 @@
 package com.education.center.need.service.impl;
 
+import com.education.api.param.QueryNeedParam;
+import com.education.api.vo.ApiNeedDetailVO;
+import com.education.api.vo.ApiNeedInfoVO;
 import com.education.center.need.entity.NeedInfoDO;
 import com.education.center.need.enums.TeachingAgeEnum;
 import com.education.center.need.mapper.NeedInfoDOMapper;
@@ -168,5 +171,25 @@ public class NeedServiceImpl implements NeedService {
         request.setMinlat(minlat);
         request.setMaxlng(maxlng);
         request.setMinlng(minlng);
+    }
+
+    /**
+     * 后台需求列表
+     * @param request
+     * @return
+     */
+    @Override
+    public PageInfo<ApiNeedInfoVO> selectNeedByRequest(QueryNeedParam request) {
+        return PageHelper.startPage(request.getPageNum(), request.getPageSize()).doSelectPageInfo(() -> needInfoDOMapper.selectByRequest(request));
+    }
+
+    /**
+     * 后台需求明细
+     * @param id
+     * @return
+     */
+    @Override
+    public ApiNeedDetailVO selectNeedDetail(Integer id){
+        return needInfoDOMapper.selectNeedDetail(id);
     }
 }

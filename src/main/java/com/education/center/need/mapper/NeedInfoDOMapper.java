@@ -1,6 +1,9 @@
 package com.education.center.need.mapper;
 
 
+import com.education.api.param.QueryNeedParam;
+import com.education.api.vo.ApiNeedDetailVO;
+import com.education.api.vo.ApiNeedInfoVO;
 import com.education.center.need.entity.NeedInfoDO;
 import com.education.center.need.vo.NeedDetailVO;
 import com.education.center.need.vo.NeedInfoRequest;
@@ -34,4 +37,18 @@ public interface NeedInfoDOMapper extends Mapper<NeedInfoDO> {
      * @return
      */
     NeedDetailVO selectDetail(@Param("id") Integer id, @Param("longitude") Double longitude, @Param("latitude") Double latitude);
+
+    /**
+     * 后台需求列表
+     * @param param
+     * @return
+     */
+    List<ApiNeedInfoVO> selectByRequest(QueryNeedParam param);
+
+    /**
+     * 后台需求明细
+     * @param id
+     * @return
+     */
+    ApiNeedDetailVO selectNeedDetail(@Param("id")Integer id);
 }

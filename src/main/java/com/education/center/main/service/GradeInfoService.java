@@ -25,4 +25,10 @@ public interface GradeInfoService {
      * @return
      */
     List<GradeInfoTreeVO> getParent();
+
+    void addGrade(String name,Integer pid);
+
+    void deleteGrade(Integer id);
+
+    void updateGrade(Integer id,String name);
 }

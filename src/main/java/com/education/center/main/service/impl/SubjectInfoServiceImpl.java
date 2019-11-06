@@ -26,19 +26,57 @@ public class SubjectInfoServiceImpl implements SubjectInfoService {
 
     /**
      * 获取所有科目
+     *
      * @return
      */
     @Override
-    public List<SubjectInfoVO> getAll(){
+    public List<SubjectInfoVO> getAll() {
         List<SubjectInfoDO> subjectInfoDOS = subjectInfoDOMapper.selectAll();
-        return BeanMapUtil.convertList(subjectInfoDOS,SubjectInfoVO.class);
+        return BeanMapUtil.convertList(subjectInfoDOS, SubjectInfoVO.class);
     }
 
 
-    public List<SubjectInfoVO> getByGrade(Integer gradeId){
+    @Override
+    public List<SubjectInfoVO> getByGrade(Integer gradeId) {
         SubjectInfoDO subjectInfoDO = new SubjectInfoDO();
         subjectInfoDO.setGradeId(gradeId);
         List<SubjectInfoDO> infoDOS = subjectInfoDOMapper.select(subjectInfoDO);
-        return BeanMapUtil.convertList(infoDOS,SubjectInfoVO.class);
+        return BeanMapUtil.convertList(infoDOS, SubjectInfoVO.class);
+    }
+
+    /**
+     * 科目添加
+     *
+     * @param gradeId
+     * @param name
+     */
+    @Override
+    public void addSubject(Integer gradeId, String name) {
+        SubjectInfoDO subjectInfoDO = new SubjectInfoDO();
+        subjectInfoDO.setGradeId(gradeId);
+        subjectInfoDO.setSubjectName(name);
+        subjectInfoDOMapper.insert(subjectInfoDO);
+    }
+
+    /**
+     * 科目修改
+     *
+     * @param id
+     * @param name
+     */
+    @Override
+    public void updateSubject(Integer id, String name) {
+        SubjectInfoDO subjectInfoDO = subjectInfoDOMapper.selectByPrimaryKey(id);
+        subjectInfoDO.setSubjectName(name);
+        subjectInfoDOMapper.updateByPrimaryKeySelective(subjectInfoDO);
+    }
+
+    /**
+     * 删除科目
+     *
+     * @param id
+     */
+    public void deletaSubject(Integer id) {
+        subjectInfoDOMapper.deleteByPrimaryKey(id);
     }
 }

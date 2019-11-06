@@ -11,9 +11,18 @@ import lombok.Data;
 @Data
 public class AuditParam {
 
+    /**
+     * id
+     */
     private Integer id;
 
+    /**
+     * 是否通过
+     */
     private Boolean isPass;
 
+    /**
+     * 原因
+     */
     private String remark;
 }

@@ -28,7 +28,6 @@
         <result column="teacher_photo" jdbcType="VARCHAR" property="teacherPhoto"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
-
         <result column="province_id" jdbcType="INTEGER" property="provinceId"/>
         <result column="city_id" jdbcType="INTEGER" property="cityId"/>
         <result column="district_id" jdbcType="INTEGER" property="districtId"/>
@@ -103,4 +102,69 @@
         LEFT JOIN subject_info e on e.id = a.teaching_subject_id
         where a.id = #{id}
     </select>
+
+    <select id="selectByRequest" resultType="com.education.api.vo.ApiNeedInfoVO">
+        SELECT
+        a.need_type as needType,
+        u.user_type as userType,
+        u.open_id as openId,
+        u.user_name as userName,
+        a.phone,
+        c.district AS provinceName,
+        d.district AS cityName,
+        e.district AS districtName,
+        a.create_time as createTime,
+        FROM
+        need_info a
+        LEFT JOIN sys_user u ON a.user_id = u.id
+        LEFT JOIN user_info ui ON ui.user_id = u.id
+        LEFT JOIN sys_district c ON a.province_id = c.district_id
+        LEFT JOIN sys_district d ON a.city_id = d.district_id
+        LEFT JOIN sys_district e ON a.district_id = e.district_id
+        where 1=1
+        <if test="needType !=null">
+            and a.need_type = #{needType}
+        </if>
+        <if test="userType !=null">
+            and u.user_type = #{userType}
+        </if>
+        <if test="useName !=null and useName !=''">
+            and u.user_name like concat('%',#{userName},'%')
+        </if>
+        <if test="phone !=null and phone !=''">
+            and a.phone = #{phone}
+        </if>
+        <if test="provinceId !=null ">
+            and a.province_id = #{provinceId}
+        </if>
+        <if test="cityId !=null ">
+            and a.city_id = #{cityId}
+        </if>
+        <if test="districtId !=null ">
+            and a.district_id = #{districtId}
+        </if>
+    </select>
+
+    <select id="selectNeedDetail" resultType="com.education.api.vo.ApiNeedDetailVO">
+        select a.id as id ,a.teaching_age teachingAge,a.nick_name as nickName,
+        a.user_id as userId ,a.phone as phone,a.sex as sex, a.tallest_diploma as tallestDiploma,
+        a.graduate_institutions as graduateInstitutions,a.specialized as specialized ,a.teaching_school as
+        teachingSchool,
+        a.teaching_age as teachingAge,a.teaching_address as teachingAddress,a.teaching_mode as teachingMode,
+        a.teaching_time as teachingTime,a.teaching_feature as remuneration,a.remuneration as remuneration,
+        a.lat as lat ,a.lon as lon,a.need_type as needType,a.teacher_photo as teacherPhoto,
+        g.grade_name as gradeName,s.subject_name as subjectName, c.district AS provinceName,
+        d.district AS cityName,
+        e.district AS districtName
+        FROM
+        need_info a
+        LEFT JOIN sys_district c ON a.province_id = c.district_id
+        LEFT JOIN sys_district d ON a.city_id = d.district_id
+        LEFT JOIN sys_district e ON a.district_id = e.district_id
+        LEFT JOIN grade_info g on a.teaching_grade_id = g.id
+        LEFT JOIN subject_info s on a.teaching_subject_id = s.id
+        where a.id = #{id}
+
+    </select>
+
 </mapper>
