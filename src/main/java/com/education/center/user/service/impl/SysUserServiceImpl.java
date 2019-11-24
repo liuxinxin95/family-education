@@ -1,12 +1,17 @@
 package com.education.center.user.service.impl;
 
+import com.education.api.vo.UserInvitationRecordVO;
 import com.education.center.asset.service.AssetUserPointService;
 import com.education.center.asset.service.AssetUserWalletService;
+import com.education.center.main.entity.SysDataDictionaryDO;
+import com.education.center.main.mapper.SysDataDictionaryDOMapper;
 import com.education.center.user.entity.SysUserDO;
 import com.education.center.user.entity.UserInfoDO;
+import com.education.center.user.entity.UserInvitationRecordDO;
 import com.education.center.user.enums.UserCertificationEnum;
 import com.education.center.user.mapper.SysUserDOMapper;
 import com.education.center.user.mapper.UserInfoDOMapper;
+import com.education.center.user.mapper.UserInvitationRecordDOMapper;
 import com.education.center.user.param.UserParam;
 import com.education.center.user.service.SysUserService;
 import com.education.center.user.vo.LoginVO;
@@ -20,6 +25,7 @@ import com.education.common.UserContext;
 import com.education.exception.RRException;
 import com.education.util.BeanMapUtil;
 import com.education.util.JwtUtil;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +36,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -41,6 +48,10 @@ import java.util.Date;
 @Service
 @Primary
 public class SysUserServiceImpl implements SysUserService {
+
+    private static Logger log = LoggerFactory.getLogger(SysUserServiceImpl.class);
+
+    private static final String INVITATION = "INVITATION";
 
     @Resource
     private SysUserDOMapper sysUserDOMapper;
@@ -57,7 +68,12 @@ public class SysUserServiceImpl implements SysUserService {
     @Autowired
     private AssetUserPointService assetUserPointService;
 
-    private static Logger log = LoggerFactory.getLogger(SysUserServiceImpl.class);
+    @Resource
+    private UserInvitationRecordDOMapper userInvitationRecordDOMapper;
+
+    @Resource
+    private SysDataDictionaryDOMapper sysDataDictionaryDOMapper;
+
 
     /**
      * 校验用户是否存在
@@ -146,7 +162,7 @@ public class SysUserServiceImpl implements SysUserService {
     @Transactional(rollbackFor = Exception.class)
     public UserVO getUserInfo() {
         String openId = ((SysUser) UserContext.getContext().getCurrentUser()).getOpenId();
-        return  sysUserDOMapper.selectByOpendId(openId);
+        return sysUserDOMapper.selectByOpendId(openId);
     }
 
     /**
@@ -184,21 +200,22 @@ public class SysUserServiceImpl implements SysUserService {
         Integer inviteUser = null;
         //是否是机构
         boolean isInstitutions = false;
-        if (userInfoVO.getInviteCode() != null) {
-            SysUserDO sysUserDO = new SysUserDO();
-            sysUserDO.setInviteCode(userInfoVO.getInviteCode());
-            SysUserDO sysUserDO2 = sysUserDOMapper.selectOne(sysUserDO);
-            if (sysUserDO2 != null) {
-                UserInfoDO userInfoDO1 = new UserInfoDO();
-                userInfoDO1.setUserId(sysUserDO2.getId());
-                UserInfoDO userInfoDO2 = userInfoDOMapper.selectOne(userInfoDO1);
-                log.info("邀请人{}", sysUserDO2.getUserName());
-                if (userInfoDO2 != null) {
-                    inviteUser = userInfoDO2.getUserId();
-                    userInfoDO.setInviterUserId(userInfoDO2.getUserId());
-                }
-            }
-        }
+        //todo 待处理机构部分
+//        if (userInfoVO.getInviteCode() != null) {
+//            SysUserDO sysUserDO = new SysUserDO();
+//            sysUserDO.setInviteCode(userInfoVO.getInviteCode());
+//            SysUserDO sysUserDO2 = sysUserDOMapper.selectOne(sysUserDO);
+//            if (sysUserDO2 != null) {
+//                UserInfoDO userInfoDO1 = new UserInfoDO();
+//                userInfoDO1.setUserId(sysUserDO2.getId());
+//                UserInfoDO userInfoDO2 = userInfoDOMapper.selectOne(userInfoDO1);
+//                log.info("邀请人{}", sysUserDO2.getUserName());
+//                if (userInfoDO2 != null) {
+//                    inviteUser = userInfoDO2.getUserId();
+////                    userInfoDO.setInviterUserId(userInfoDO2.getUserId());
+//                }
+//            }
+//        }
         //统一未审核、机构邀请需要后面机构补缴后开通、其他正常流程
         userInfoVO.setExamineStatus(0);
         userInfoDO.setCertificationStatus(0);
@@ -301,4 +318,57 @@ public class SysUserServiceImpl implements SysUserService {
             return getInviteCode(userId);
         }
     }
+
+    /**
+     * 设置我的邀请人
+     *
+     * @param inviteCode
+     */
+    @Override
+    public void setInviteUser(Integer inviteCode) {
+        SysUserDO userDO = new SysUserDO();
+        userDO.setInviteCode(inviteCode);
+        SysUserDO userDO1 = sysUserDOMapper.selectOne(userDO);
+        if (userDO1 == null) {
+            throw new RRException("邀请码错误，暂无此人");
+        }
+        SysUser currentUser = UserContext.<SysUser>getContext().getCurrentUser();
+        SysUserDO sysUserDO = sysUserDOMapper.selectByPrimaryKey(currentUser.getId());
+        sysUserDO.setInviterUserId(inviteCode);
+        sysUserDOMapper.updateByPrimaryKeySelective(sysUserDO);
+
+        //邀请记录，关联邀请规则
+        UserInvitationRecordDO recordDO = new UserInvitationRecordDO();
+        SysDataDictionaryDO dictionaryDO = new SysDataDictionaryDO();
+        dictionaryDO.setDataType(INVITATION);
+        List<SysDataDictionaryDO> dos = sysDataDictionaryDOMapper.select(dictionaryDO);
+        if (CollectionUtils.isNotEmpty(dos)) {
+            SysDataDictionaryDO dictionaryDO1 = dos.get(0);
+            //这个是积分
+            if ("poin".equals(dictionaryDO1.getDataCode())) {
+                recordDO.setPoint(Long.valueOf(dictionaryDO1.getDataCode()));
+            } else {
+                //这个是现金
+                recordDO.setAmount(Long.valueOf(dictionaryDO1.getDataCode()));
+            }
+        }
+        recordDO.setUserId(sysUserDO.getId());
+        recordDO.setInvitationId(userDO1.getId());
+        recordDO.setCreateTime(new Date());
+        recordDO.setUpdateTime(new Date());
+        userInvitationRecordDOMapper.insert(recordDO);
+    }
+
+    /**
+     * 获取邀请记录
+     *
+     * @return
+     */
+    @Override
+    public List<UserInvitationRecordVO> getUserInvitationRecord() {
+        SysUser currentUser = UserContext.<SysUser>getContext().getCurrentUser();
+        List<UserInvitationRecordVO> invitationRecord = userInvitationRecordDOMapper.getInvitationRecord(currentUser.getId());
+        return invitationRecord;
+    }
+
 }

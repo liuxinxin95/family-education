@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.education.center.main.mapper.SysDataDictionaryDOMapper">
+  <resultMap id="BaseResultMap" type="com.education.center.main.entity.SysDataDictionaryDO">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="data_type" jdbcType="VARCHAR" property="dataType" />
+    <result column="data_code" jdbcType="VARCHAR" property="dataCode" />
+    <result column="data_value" jdbcType="VARCHAR" property="dataValue" />
+    <result column="data_value_code" jdbcType="VARCHAR" property="dataValueCode" />
+    <result column="sort_no" jdbcType="INTEGER" property="sortNo" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="data_desc" jdbcType="VARCHAR" property="dataDesc" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, data_type, data_code, data_value, data_value_code, sort_no, status, data_desc, 
+    create_time, update_time
+  </sql>
+</mapper>

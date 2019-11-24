@@ -1,5 +1,6 @@
 package com.education.controller.user;
 
+import com.education.api.vo.UserInvitationRecordVO;
 import com.education.center.user.param.UserParam;
 import com.education.center.user.service.SysUserService;
 import com.education.center.user.vo.UserCertificationVO;
@@ -12,6 +13,8 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author Carl
@@ -94,8 +97,22 @@ public class UserController extends BaseController {
 
     @ApiOperation(value = "获取验证码")
     @GetMapping(value = "/SmsBiz")
-    public ApiResponse<Boolean> SmsBiz(String phone) {
+    public ApiResponse<Boolean> SmsBiz(@RequestParam("phone") String phone) {
         smsBiz.sendSms(phone);
         return success(true);
+    }
+
+
+    @ApiOperation(value = "设置我的邀请人")
+    @GetMapping(value = "/setInviteUser")
+    public ApiResponse<Boolean> setInviteUser(@RequestParam("inviteCode") Integer inviteCode) {
+        sysUserService.setInviteUser(inviteCode);
+        return success(true);
+    }
+
+    @ApiOperation(value = "获取邀请记录")
+    @GetMapping(value = "/getUserInvitationRecord")
+    public ApiResponse<List<UserInvitationRecordVO>> getUserInvitationRecord() {
+        return success(sysUserService.getUserInvitationRecord());
     }
 }

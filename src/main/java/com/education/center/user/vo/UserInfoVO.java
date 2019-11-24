@@ -82,11 +82,5 @@ public class UserInfoVO implements Serializable {
     @ApiModelProperty(value ="")
     private Integer examineStatus;
 
-    /**
-     * 邀请码
-     */
-    @ApiModelProperty(value ="邀请码")
-    private Integer inviteCode;
-
 
 }

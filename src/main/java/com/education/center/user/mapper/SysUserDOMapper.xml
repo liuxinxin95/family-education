@@ -21,13 +21,14 @@
         <result column="province_id" jdbcType="INTEGER" property="provinceId"/>
         <result column="city_id" jdbcType="INTEGER" property="cityId"/>
         <result column="district_id" jdbcType="INTEGER" property="districtId"/>
+        <result column="inviter_user_id" jdbcType="INTEGER" property="inviterUserId" />
     </resultMap>
     <sql id="Base_Column_List">
         <!--
           WARNING - @mbg.generated
         -->
         id, open_id, user_name, phone, sex, birthday, address, invite_code, professional,
-        create_time, update_time, user_type, province_id, city_id, district_id,avatar
+        create_time, update_time, user_type, province_id, city_id, district_id,avatar,inviter_user_id
     </sql>
     <insert id="insertOne" parameterType="com.education.center.user.entity.SysUserDO" useGeneratedKeys="true"
             keyProperty="id">

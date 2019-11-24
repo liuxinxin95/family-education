@@ -3,19 +3,19 @@ package com.education.center.asset.entity;
 import java.util.Date;
 import javax.persistence.*;
 
-@Table(name = "asset_user_wallet_log")
-public class AssetUserWalletLogDO {
+@Table(name = "asset_user_point_record")
+public class AssetUserPointRecordDO {
     /**
      * 主键
      */
     @Id
-    private Integer id;
+    private Long id;
 
     /**
      * 用户id
      */
     @Column(name = "user_id")
-    private Integer userId;
+    private Long userId;
 
     /**
      * 交易编号（订单号）
@@ -48,11 +48,6 @@ public class AssetUserWalletLogDO {
     private Long postTradeAmount;
 
     /**
-     * 交易状态：0交易中 1成功 2失败
-     */
-    private Byte status;
-
-    /**
      * 交易时间
      */
     @Column(name = "trade_time")
@@ -74,7 +69,7 @@ public class AssetUserWalletLogDO {
      *
      * @return id - 主键
      */
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -83,7 +78,7 @@ public class AssetUserWalletLogDO {
      *
      * @param id 主键
      */
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -92,7 +87,7 @@ public class AssetUserWalletLogDO {
      *
      * @return user_id - 用户id
      */
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
@@ -101,7 +96,7 @@ public class AssetUserWalletLogDO {
      *
      * @param userId 用户id
      */
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -193,24 +188,6 @@ public class AssetUserWalletLogDO {
      */
     public void setPostTradeAmount(Long postTradeAmount) {
         this.postTradeAmount = postTradeAmount;
-    }
-
-    /**
-     * 获取交易状态：0交易中 1成功 2失败
-     *
-     * @return status - 交易状态：0交易中 1成功 2失败
-     */
-    public Byte getStatus() {
-        return status;
-    }
-
-    /**
-     * 设置交易状态：0交易中 1成功 2失败
-     *
-     * @param status 交易状态：0交易中 1成功 2失败
-     */
-    public void setStatus(Byte status) {
-        this.status = status;
     }
 
     /**

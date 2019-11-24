@@ -3,8 +3,8 @@ package com.education.center.asset.entity;
 import java.util.Date;
 import javax.persistence.*;
 
-@Table(name = "asset_user_point_log")
-public class AssetUserPointLogDO {
+@Table(name = "asset_user_wallet_record")
+public class AssetUserWalletRecordDO {
     /**
      * 主键
      */
@@ -15,7 +15,7 @@ public class AssetUserPointLogDO {
      * 用户id
      */
     @Column(name = "user_id")
-    private Integer userId;
+    private Long userId;
 
     /**
      * 交易编号（订单号）
@@ -46,6 +46,11 @@ public class AssetUserPointLogDO {
      */
     @Column(name = "post_trade_amount")
     private Long postTradeAmount;
+
+    /**
+     * 交易状态：0交易中 1成功 2失败
+     */
+    private Byte status;
 
     /**
      * 交易时间
@@ -87,7 +92,7 @@ public class AssetUserPointLogDO {
      *
      * @return user_id - 用户id
      */
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
@@ -96,7 +101,7 @@ public class AssetUserPointLogDO {
      *
      * @param userId 用户id
      */
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -188,6 +193,24 @@ public class AssetUserPointLogDO {
      */
     public void setPostTradeAmount(Long postTradeAmount) {
         this.postTradeAmount = postTradeAmount;
+    }
+
+    /**
+     * 获取交易状态：0交易中 1成功 2失败
+     *
+     * @return status - 交易状态：0交易中 1成功 2失败
+     */
+    public Byte getStatus() {
+        return status;
+    }
+
+    /**
+     * 设置交易状态：0交易中 1成功 2失败
+     *
+     * @param status 交易状态：0交易中 1成功 2失败
+     */
+    public void setStatus(Byte status) {
+        this.status = status;
     }
 
     /**

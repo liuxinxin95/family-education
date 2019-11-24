@@ -92,6 +92,13 @@ public class SysUserDO {
      */
     private String avatar;
 
+
+    /**
+     * 关联邀请人
+     */
+    @Column(name = "inviter_user_id")
+    private Integer inviterUserId;
+
     /**
      * @return id
      */
@@ -374,5 +381,13 @@ public class SysUserDO {
      */
     public void setAvatar(String avatar) {
         this.avatar = avatar == null ? null : avatar.trim();
+    }
+
+    public Integer getInviterUserId() {
+        return inviterUserId;
+    }
+
+    public void setInviterUserId(Integer inviterUserId) {
+        this.inviterUserId = inviterUserId;
     }
 }

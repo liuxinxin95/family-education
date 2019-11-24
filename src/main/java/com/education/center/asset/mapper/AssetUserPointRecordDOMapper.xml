@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.education.center.asset.mapper.AssetUserWalletLogDOMapper">
-  <resultMap id="BaseResultMap" type="com.education.center.asset.entity.AssetUserWalletLogDO">
+<mapper namespace="com.education.center.asset.mapper.AssetUserPointRecordDOMapper">
+  <resultMap id="BaseResultMap" type="com.education.center.asset.entity.AssetUserPointRecordDO">
     <!--
       WARNING - @mbg.generated
     -->
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="trade_no" jdbcType="VARCHAR" property="tradeNo" />
     <result column="trade_code" jdbcType="VARCHAR" property="tradeCode" />
     <result column="trade_amount" jdbcType="BIGINT" property="tradeAmount" />
     <result column="pre_trade_amount" jdbcType="BIGINT" property="preTradeAmount" />
     <result column="post_trade_amount" jdbcType="BIGINT" property="postTradeAmount" />
-    <result column="status" jdbcType="TINYINT" property="status" />
     <result column="trade_time" jdbcType="TIMESTAMP" property="tradeTime" />
     <result column="trade_date" jdbcType="DATE" property="tradeDate" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
@@ -22,6 +21,6 @@
       WARNING - @mbg.generated
     -->
     id, user_id, trade_no, trade_code, trade_amount, pre_trade_amount, post_trade_amount, 
-    status, trade_time, trade_date, remark
+    trade_time, trade_date, remark
   </sql>
 </mapper>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.education.center.user.mapper.UserInvitationRecordDOMapper">
+    <resultMap id="BaseResultMap" type="com.education.center.user.entity.UserInvitationRecordDO">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="invitation_id" jdbcType="INTEGER" property="invitationId"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="point" jdbcType="BIGINT" property="point"/>
+        <result column="amount" jdbcType="BIGINT" property="amount"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        id, user_id, invitation_id, type, point, amount, create_time, update_time
+    </sql>
+    <select id="getInvitationRecord" resultType="com.education.api.vo.UserInvitationRecordVO">
+      select a.user_id as userId,b.user_name as invitationName,
+      a.type,a.point,a.amount,a.create_time as createTime
+      from
+      sys_data_dictionary a
+      left join sys_user b on a.invitation_id = b.id
+      where a.user_id = #{userId}
+    </select>
+</mapper>

@@ -80,11 +80,6 @@ public class UserInfoDO {
     @Column(name = "examine_status")
     private Integer examineStatus;
 
-    /**
-     * 关联邀请人
-     */
-    @Column(name = "inviter_user_id")
-    private Integer inviterUserId;
 
     /**
      * 缴费方式：0没有缴费 1个人缴费 2机构缴费
@@ -370,23 +365,6 @@ public class UserInfoDO {
         this.examineStatus = examineStatus;
     }
 
-    /**
-     * 获取关联邀请人
-     *
-     * @return inviter_user_id - 关联邀请人
-     */
-    public Integer getInviterUserId() {
-        return inviterUserId;
-    }
-
-    /**
-     * 设置关联邀请人
-     *
-     * @param inviterUserId 关联邀请人
-     */
-    public void setInviterUserId(Integer inviterUserId) {
-        this.inviterUserId = inviterUserId;
-    }
 
     /**
      * 获取缴费方式：0没有缴费 1个人缴费 2机构缴费
