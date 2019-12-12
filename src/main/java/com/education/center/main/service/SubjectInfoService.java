@@ -36,5 +36,5 @@ public interface SubjectInfoService {
 
     void updateSubject(Integer id, String name);
 
-    void deletaSubject(Integer id);
+    void deleteSubject(Integer id);
 }

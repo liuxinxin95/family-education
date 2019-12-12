@@ -6,7 +6,7 @@
       WARNING - @mbg.generated
     -->
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="trade_no" jdbcType="VARCHAR" property="tradeNo" />
     <result column="trade_code" jdbcType="VARCHAR" property="tradeCode" />
     <result column="trade_amount" jdbcType="BIGINT" property="tradeAmount" />

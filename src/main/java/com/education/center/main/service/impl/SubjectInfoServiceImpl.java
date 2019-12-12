@@ -76,7 +76,7 @@ public class SubjectInfoServiceImpl implements SubjectInfoService {
      *
      * @param id
      */
-    public void deletaSubject(Integer id) {
+    public void deleteSubject(Integer id) {
         subjectInfoDOMapper.deleteByPrimaryKey(id);
     }
 }

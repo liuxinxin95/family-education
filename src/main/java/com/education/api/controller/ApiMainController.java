@@ -66,15 +66,15 @@ public class ApiMainController extends BaseController {
 
     @ApiOperation(value = "科目删除")
     @ApiImplicitParam(paramType = "header", name = "sessionId", required = true, value = "SESSION信息", dataType = "String")
-    @GetMapping("/deletaSubject")
+    @GetMapping("/deleteSubject")
     private ApiResponse<Boolean> deletaSubject(@RequestParam("id") Integer id) {
-        subjectInfoService.deletaSubject(id);
+        subjectInfoService.deleteSubject(id);
         return success(true);
     }
 
     @ApiOperation(value = "获取全部年级")
     @ApiImplicitParam(paramType = "header", name = "sessionId", required = true, value = "SESSION信息", dataType = "String")
-    @GetMapping("/getSubjectAll")
+    @GetMapping("/getGradeAll")
     private ApiResponse<List<GradeInfoTreeVO>> getGradeAll() {
         return success(gradeInfoService.getAll());
     }

@@ -16,13 +16,7 @@ public class SysUserSignLastRecordDO {
      * 用户id
      */
     @Column(name = "user_id")
-    private Long userId;
-
-    /**
-     * 规则ID
-     */
-    @Column(name = "rule_id")
-    private Long ruleId;
+    private Integer userId;
 
     /**
      * 最后签到时间
@@ -31,16 +25,10 @@ public class SysUserSignLastRecordDO {
     private Date lastSignTime;
 
     /**
-     * 最后一次签到天数
+     * 最后一次签到连续天数
      */
     @Column(name = "last_sign_day_num")
     private Integer lastSignDayNum;
-
-    /**
-     * 最后签到规则（日签规则ID_连续签到规则ID）
-     */
-    @Column(name = "last_sign_award_id")
-    private String lastSignAwardId;
 
     /**
      * 创建时间
@@ -51,8 +39,8 @@ public class SysUserSignLastRecordDO {
     /**
      * 修改时间
      */
-    @Column(name = "modify_time")
-    private Date modifyTime;
+    @Column(name = "update_time")
+    private Date updateTime;
 
     /**
      * 数据状态值(1:有效、-1:无效)
@@ -82,7 +70,7 @@ public class SysUserSignLastRecordDO {
      *
      * @return user_id - 用户id
      */
-    public Long getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
@@ -91,26 +79,8 @@ public class SysUserSignLastRecordDO {
      *
      * @param userId 用户id
      */
-    public void setUserId(Long userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
-    }
-
-    /**
-     * 获取规则ID
-     *
-     * @return rule_id - 规则ID
-     */
-    public Long getRuleId() {
-        return ruleId;
-    }
-
-    /**
-     * 设置规则ID
-     *
-     * @param ruleId 规则ID
-     */
-    public void setRuleId(Long ruleId) {
-        this.ruleId = ruleId;
     }
 
     /**
@@ -132,39 +102,21 @@ public class SysUserSignLastRecordDO {
     }
 
     /**
-     * 获取最后一次签到天数
+     * 获取最后一次签到连续天数
      *
-     * @return last_sign_day_num - 最后一次签到天数
+     * @return last_sign_day_num - 最后一次签到连续天数
      */
     public Integer getLastSignDayNum() {
         return lastSignDayNum;
     }
 
     /**
-     * 设置最后一次签到天数
+     * 设置最后一次签到连续天数
      *
-     * @param lastSignDayNum 最后一次签到天数
+     * @param lastSignDayNum 最后一次签到连续天数
      */
     public void setLastSignDayNum(Integer lastSignDayNum) {
         this.lastSignDayNum = lastSignDayNum;
-    }
-
-    /**
-     * 获取最后签到规则（日签规则ID_连续签到规则ID）
-     *
-     * @return last_sign_award_id - 最后签到规则（日签规则ID_连续签到规则ID）
-     */
-    public String getLastSignAwardId() {
-        return lastSignAwardId;
-    }
-
-    /**
-     * 设置最后签到规则（日签规则ID_连续签到规则ID）
-     *
-     * @param lastSignAwardId 最后签到规则（日签规则ID_连续签到规则ID）
-     */
-    public void setLastSignAwardId(String lastSignAwardId) {
-        this.lastSignAwardId = lastSignAwardId == null ? null : lastSignAwardId.trim();
     }
 
     /**
@@ -188,19 +140,19 @@ public class SysUserSignLastRecordDO {
     /**
      * 获取修改时间
      *
-     * @return modify_time - 修改时间
+     * @return update_time - 修改时间
      */
-    public Date getModifyTime() {
-        return modifyTime;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
     /**
      * 设置修改时间
      *
-     * @param modifyTime 修改时间
+     * @param updateTime 修改时间
      */
-    public void setModifyTime(Date modifyTime) {
-        this.modifyTime = modifyTime;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
     /**

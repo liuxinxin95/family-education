@@ -3,6 +3,7 @@ package com.education.controller.user;
 import com.education.api.vo.UserInvitationRecordVO;
 import com.education.center.user.param.UserParam;
 import com.education.center.user.service.SysUserService;
+import com.education.center.user.vo.ApiMyInvitationVO;
 import com.education.center.user.vo.UserCertificationVO;
 import com.education.center.user.vo.UserInfoVO;
 import com.education.center.user.vo.UserVO;
@@ -115,4 +116,12 @@ public class UserController extends BaseController {
     public ApiResponse<List<UserInvitationRecordVO>> getUserInvitationRecord() {
         return success(sysUserService.getUserInvitationRecord());
     }
+
+    @ApiOperation(value = "获取我的邀请码、邀请人信息")
+    @GetMapping(value = "/getMyInvitation")
+    public ApiResponse<ApiMyInvitationVO> getMyInvitation() {
+        return success(sysUserService.getMyInvitation());
+    }
+
+
 }

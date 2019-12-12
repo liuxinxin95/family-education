@@ -3,10 +3,7 @@ package com.education.center.user.service;
 import com.education.api.vo.UserInvitationRecordVO;
 import com.education.center.user.entity.SysUserDO;
 import com.education.center.user.param.UserParam;
-import com.education.center.user.vo.LoginVO;
-import com.education.center.user.vo.UserCertificationVO;
-import com.education.center.user.vo.UserInfoVO;
-import com.education.center.user.vo.UserVO;
+import com.education.center.user.vo.*;
 
 import java.util.List;
 
@@ -90,4 +87,11 @@ public interface SysUserService {
      * @return
      */
      List<UserInvitationRecordVO> getUserInvitationRecord();
+
+
+    /**
+     * 获取我的邀请码、邀请人信息
+     * @return
+     */
+    ApiMyInvitationVO getMyInvitation();
 }

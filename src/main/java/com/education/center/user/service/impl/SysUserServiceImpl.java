@@ -14,10 +14,7 @@ import com.education.center.user.mapper.UserInfoDOMapper;
 import com.education.center.user.mapper.UserInvitationRecordDOMapper;
 import com.education.center.user.param.UserParam;
 import com.education.center.user.service.SysUserService;
-import com.education.center.user.vo.LoginVO;
-import com.education.center.user.vo.UserInfoVO;
-import com.education.center.user.vo.UserVO;
-import com.education.center.user.vo.UserCertificationVO;
+import com.education.center.user.vo.*;
 import com.education.common.ShareCodeUtil;
 import com.education.common.SmsBiz;
 import com.education.common.SysUser;
@@ -334,7 +331,7 @@ public class SysUserServiceImpl implements SysUserService {
         }
         SysUser currentUser = UserContext.<SysUser>getContext().getCurrentUser();
         SysUserDO sysUserDO = sysUserDOMapper.selectByPrimaryKey(currentUser.getId());
-        sysUserDO.setInviterUserId(inviteCode);
+        sysUserDO.setInviterUserId(userDO1.getId());
         sysUserDOMapper.updateByPrimaryKeySelective(sysUserDO);
 
         //邀请记录，关联邀请规则
@@ -371,4 +368,25 @@ public class SysUserServiceImpl implements SysUserService {
         return invitationRecord;
     }
 
+    /**
+     * 获取我的邀请码、邀请人信息
+     * @return
+     */
+    @Override
+    public ApiMyInvitationVO getMyInvitation(){
+        ApiMyInvitationVO invitationVO = new ApiMyInvitationVO();
+        SysUser currentUser = UserContext.<SysUser>getContext().getCurrentUser();
+        SysUserDO sysUserDO = sysUserDOMapper.selectByPrimaryKey(currentUser);
+        if (sysUserDO == null){
+            throw new RRException("用户信息错误");
+        }
+        invitationVO.setInviteCode(sysUserDO.getInviteCode());
+        if (sysUserDO.getInviterUserId()!=null){
+            SysUserDO userDO = sysUserDOMapper.selectByPrimaryKey(currentUser);
+            invitationVO.setInviteName(userDO.getUserName());
+            invitationVO.setInvitePhone(userDO.getPhone());
+            invitationVO.setInviteUserId(userDO.getId());
+        }
+        return invitationVO;
+    }
 }

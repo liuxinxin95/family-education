@@ -1,30 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.education.center.sign.mapper.SysUserSignRecordDOMapper">
-  <resultMap id="BaseResultMap" type="com.education.center.sign.entity.SysUserSignRecordDO">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="record_id" jdbcType="BIGINT" property="recordId" />
-    <result column="user_id" jdbcType="BIGINT" property="userId" />
-    <result column="city_code" jdbcType="VARCHAR" property="cityCode" />
-    <result column="rule_id" jdbcType="BIGINT" property="ruleId" />
-    <result column="award_id" jdbcType="BIGINT" property="awardId" />
-    <result column="award_type" jdbcType="INTEGER" property="awardType" />
-    <result column="award_way" jdbcType="INTEGER" property="awardWay" />
-    <result column="award_value" jdbcType="BIGINT" property="awardValue" />
-    <result column="award_amount" jdbcType="BIGINT" property="awardAmount" />
-    <result column="continue_sign_flag" jdbcType="INTEGER" property="continueSignFlag" />
-    <result column="sign_day_num" jdbcType="INTEGER" property="signDayNum" />
-    <result column="delete_flag" jdbcType="INTEGER" property="deleteFlag" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    record_id, user_id, city_code, rule_id, award_id, award_type, award_way, award_value, 
-    award_amount, continue_sign_flag, sign_day_num, delete_flag, create_time, modify_time
-  </sql>
+    <resultMap id="BaseResultMap" type="com.education.center.sign.entity.SysUserSignRecordDO">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="record_id" jdbcType="BIGINT" property="recordId"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="city_code" jdbcType="VARCHAR" property="cityCode"/>
+        <result column="award_way" jdbcType="INTEGER" property="awardWay"/>
+        <result column="award_value" jdbcType="BIGINT" property="awardValue"/>
+        <result column="award_amount" jdbcType="BIGINT" property="awardAmount"/>
+        <result column="award_point" jdbcType="BIGINT" property="awardPoint"/>
+        <result column="delete_flag" jdbcType="INTEGER" property="deleteFlag"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        record_id, user_id, city_code, award_way, award_value, award_amount, award_point,
+        delete_flag, create_time, update_time
+    </sql>
+
+    <select id="selectRecordFewDay" resultType="com.education.center.sign.entity.SysUserSignRecordDO">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_user_sign_record
+        where user_id = #{userId} and DATE_SUB(CURDATE(), INTERVAL #{day} DAY) <![CDATA[<=]]> date(create_time)
+    </select>
+
+    <insert id="insertOne" parameterType="com.education.center.sign.entity.SysUserSignRecordDO" useGeneratedKeys="true"
+            keyProperty="id">
+    insert into sys_user_sign_record(user_id, city_code, award_way, award_value, award_amount, award_point,
+        delete_flag, create_time, update_time)
+    values(#{userId},#{cityCode},#{awardWay},#{awardValue},#{awardAmount},#{awardPoint},#{deleteFlag},#{createTime},#{updateTime})
+    </insert>
 </mapper>

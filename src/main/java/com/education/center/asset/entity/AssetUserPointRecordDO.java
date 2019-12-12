@@ -15,7 +15,7 @@ public class AssetUserPointRecordDO {
      * 用户id
      */
     @Column(name = "user_id")
-    private Long userId;
+    private Integer userId;
 
     /**
      * 交易编号（订单号）
@@ -87,7 +87,7 @@ public class AssetUserPointRecordDO {
      *
      * @return user_id - 用户id
      */
-    public Long getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
@@ -96,7 +96,7 @@ public class AssetUserPointRecordDO {
      *
      * @param userId 用户id
      */
-    public void setUserId(Long userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
